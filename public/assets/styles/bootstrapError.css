@@ -1,0 +1,20 @@
+.c-bootstrap-error {
+
+    &--style {
+        text-align: center;
+    }
+
+    &__image {
+        //background-image: url('./assets/images/bootstrap/error.png');
+        width: 100%;
+        height: auto;
+    }
+
+    &__title {
+
+    }
+
+    &__description {
+
+    }
+}

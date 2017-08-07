@@ -1,0 +1,159 @@
+/*
+ Use BEMIT
+
+ Block: The sole root of the component.
+ Element: A component part of the Block.
+ Modifier: A variant or extension of the Block.
+
+ Blocks, Elements, and Modifiers: BEM. Absolutely every class in a project fits
+ into one of these categories, which is why BEM is so great—it’s incredibly
+ simple and straightforward.
+
+ The point of BEM is to give a lot more transparency and clarity in your markup.
+ BEM tells developers how classes relate to each other, which is particularly
+ useful in complex or deep pieces of DOM.
+
+ Block__Element--Modifier
+
+ The Namespaces
+
+ l-: Signify that something is a Layout module. These modules have no cosmetics and are
+ purely used to position c- components and structure an application’s layout.
+ (l-grid, l-container)
+
+ c-: Signify that something is a Component. This is a concrete, implementation-specific
+ piece of UI. All of the changes you make to its styles should be detectable in the
+ context you’re currently looking at. Modifying these styles should be safe and have
+ no side effects.
+ (c-card, c-checklist)
+
+ u-: Signify that this class is a Utility class. It has a very specific role
+ (often providing only one declaration) and should not be bound onto or changed. It can
+ be reused and is not tied to any specific piece of UI.
+
+ t-: Signify that a class is responsible for adding a Theme to a view. It lets us know
+ that UI Components’ current cosmetic appearance may be due to the presence of a theme.
+
+ is-, has-: Signify that the piece of UI in question is currently styled a certain way
+ because of a state or condition. This stateful namespace is gorgeous, and comes from
+ SMACSS. It tells us that the DOM currently has a temporary, optional, or short-lived
+ style applied to it due to a certain state being invoked.
+ (is-visible, has-loaded)
+
+ _: Signify that this class is the worst of the worst—a hack! Sometimes, although incredibly
+ rarely, we need to add a class in our markup in order to force something to work. If we
+ do this, we need to let others know that this class is less than ideal, and hopefully
+ temporary (i.e. do not bind onto this).
+
+ js-: Signify that this piece of the DOM has some behaviour acting upon it, and that
+ JavaScript binds onto it to provide that behaviour. If you’re not a developer working
+ with JavaScript, leave these well alone.
+ (js-tab-switcher)
+
+ Property:
+
+ The CSS all shorthand property resets all properties
+
+ .my-wonderful-clean-component{
+   all: initial;
+ }
+
+ Custom properties:
+
+ Declare
+ :root {
+    --box-color:#4d4e53;
+ }
+
+ Use
+ .box {
+   color: var(--box-color);
+ }
+
+ Get property in JS
+
+ var styles = getComputedStyle(document.documentElement);
+ var value = String(styles.getPropertyValue('--primary-color')).trim();
+
+ Set property in JS
+
+ document.documentElement.style.setProperty('--primary-color', 'green');
+
+ Declaration order
+
+ .declaration-order {
+   // Position
+   position: absolute;
+   top: 0;
+   right: 0;
+   bottom: 0;
+   left: 0;
+   z-index: 100;
+
+   // Block model
+   display: block;
+   float: right;
+   width: 100px;
+   height: 100px;
+   margin: 10px;
+   padding: 10px;
+
+   // Typography
+   font: normal 13px/1.5 "Arial", sans-serif;
+   font-style: normal;
+   font-size: 13px;
+   line-height: 1.5;
+   font-family: "Arial", sans-serif;
+   text-align: center;
+   color: #333333;
+
+   // Style
+   background-color: #f5f5f5;
+   border: 1px solid #e5e5e5;
+   border-radius: 3px;
+   opacity: 1;
+
+   // Animating
+   transition: color 1s;
+
+   // Different
+   will-change: auto;
+ }
+
+ Mobile-first/Desktop-first:
+
+ A mobile-first approach to styling means that styles are applied first to mobile devices.
+ Advanced styles and other overrides for larger screens are then added into the stylesheet
+ via media queries.
+ This approach uses min-width media queries.
+
+ // This applies from 0px to 600px
+ body {
+   background: red;
+ }
+
+ // This applies from 600px onwards
+ @media (min-width: 600px) {
+   body {
+     background: green;
+   }
+ }
+
+ On the flipside, a desktop-first approach to styling means that styles are applied first
+ to desktop devices. Advanced styles and overrides for smaller screens are then added into
+ the stylesheet via media queries.
+ This approach uses max-width media queries.
+
+ // This applies from 600px onwards
+ body {
+   background: green;
+ }
+
+ // This applies from 0px to 600px
+ @media (max-width: 600px) {
+   body {
+     background: red;
+   }
+ }
+
+*/

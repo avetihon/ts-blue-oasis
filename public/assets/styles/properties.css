@@ -1,0 +1,13 @@
+:root {
+    --gutter: 1rem;
+}
+
+@media (min-width: 768px) {
+
+}
+
+@media (min-width: 992px) {
+    :root {
+        --gutter: auto;
+    }
+}
