@@ -1,22 +1,58 @@
 import { Component } from '@angular/core';
-import AdminService from '../../services/Admin.service';
+import { HttpErrorResponse } from '@angular/common/http';
+
+import ITrainData from '../../models/ITrainData';
+import ITrainResponse from '../../models/ITrainResponse';
+import MovementTypeList from '../../config/MovementTypeList';
+import MotionCaptureService from '../../services/MotionCapture.service';
+import ClassificationService from '../../services/Classification.service';
 
 @Component({
     selector: 'cmp-training',
-    templateUrl: 'blue-oasis/admin/training/adminTraining.component.html'
+    templateUrl: './adminTraining.component.html',
 })
 class AdminTrainingComponent {
 
-    private __adminService: AdminService;
+    public MovementTypeList: MovementTypeList;
+    public movementType: keyof typeof MovementTypeList;
 
-    public constructor(adminService: AdminService) {
-        this.__adminService = adminService;
+    public constructor(private __classificationService: ClassificationService,
+                       private __motionCaptureService: MotionCaptureService) {
+        this.MovementTypeList = MovementTypeList;
+    }
+
+    public setMovementType(type: keyof typeof MovementTypeList): void {
+        this.movementType = type;
+    }
+
+    public captureMovement(): void {
+        if (this.movementType !== void 0) {
+            this.__motionCaptureService.setMovementType(this.movementType);
+            this.__motionCaptureService.capture();
+        }
+    }
+
+    public stop(): void {
+        this.__motionCaptureService.stopCapture();
+    }
+
+    public removeData(): void {
+        this.__motionCaptureService.removeData();
     }
 
     public send(): void {
-        this.__adminService.sendTrainSet({a: 1}).then((res: any) => {
-            console.log(res)
-        })
+        const trainData: ITrainData[] = this.__motionCaptureService.getData();
+        this.__classificationService
+            .sendTrainData(trainData)
+            .subscribe(this._sendNextHandler, this._sendErrorHandler);
+    }
+
+    protected _sendNextHandler = (response: ITrainResponse): void => {
+        console.log(response);
+    }
+
+    protected _sendErrorHandler = (error: HttpErrorResponse): void => {
+
     }
 }
 

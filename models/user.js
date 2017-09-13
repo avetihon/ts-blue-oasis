@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const jsonWebToken = require('jsonwebtoken');
+const ObjectID = require('mongodb').ObjectID;
 
 const db = require('../databaseWrapper/database');
 const Model = require('../databaseWrapper/model');
@@ -18,7 +19,8 @@ class User extends Model {
             if (user === null) {
                 return {
                     success: false,
-                    errorCode: ErrorCodeList.USER_NOT_FOUND
+                    code: ErrorCodeList.USER_NOT_FOUND,
+                    message: 'Couldn\'t find the user'
                 }
             }
 
@@ -26,13 +28,17 @@ class User extends Model {
                 if (result === false) {
                     return {
                         success: false,
-                        errorCode: ErrorCodeList.INCORRECT_PASSWORD
+                        code: ErrorCodeList.INCORRECT_PASSWORD,
+                        message: 'Incorrect password'
                     }
                 }
 
+                delete user.password; // this field doesn't need in client side
+
                 return {
                     success: true,
-                    token: jsonWebToken.sign(this.fields, process.env.TOKEN_SECRET, { expiresIn: '1h' })
+                    user: user,
+                    token: jsonWebToken.sign(user, process.env.TOKEN_SECRET, { expiresIn: '1h' })
                 }
             });
         });
@@ -42,12 +48,16 @@ class User extends Model {
         let username = this.fields.username;
         let password = this.fields.password;
         return this.hashPassword(password).then((passwordHash) => {
-            return this.collection.save({
+            return this.collection.insertOne({
                 username: username,
                 password: passwordHash,
                 role: ROLE
             });
         });
+    }
+
+    getData() {
+        return this.collection.findOne({ _id: ObjectID(this.fields._id) }, { password: 0 });
     }
 
     hashPassword(password) {

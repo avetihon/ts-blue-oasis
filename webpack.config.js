@@ -2,6 +2,7 @@
 var webpack = require('webpack');
 var path = require('path');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
     // Note: __dirname refers to the directory where this webpack.config.js lives
@@ -22,8 +23,14 @@ module.exports = {
         rules: [
             {
                 test: /\.ts$/,
-                loader: 'awesome-typescript-loader',
-                options: { configFileName: 'develop.tsconfig.json' }
+                use: [
+                    { loader: 'awesome-typescript-loader', options: { configFileName: 'develop.tsconfig.json' } },
+                    { loader: 'angular2-template-loader'}
+                ]
+            },
+            {
+                test: /\.html$/,
+                loader: 'raw-loader'
             },
             {
                 test: /\.css$/,
@@ -37,6 +44,7 @@ module.exports = {
         ],
     },
     plugins: [
+        new webpack.optimize.ModuleConcatenationPlugin(),
         new webpack.optimize.CommonsChunkPlugin({
             // Shares common code between the pages.
             names: ['style', 'vendor', 'polyfills'],
@@ -51,6 +59,7 @@ module.exports = {
             }
         ),
         new ExtractTextPlugin('./build/style.css')
+        // new BundleAnalyzerPlugin()
     ]
 };
 

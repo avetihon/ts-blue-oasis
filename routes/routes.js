@@ -1,16 +1,19 @@
 const path = require('path');
 const authController = require('../controllers/auth');
+const userController = require('../controllers/user');
 const serverController = require('../controllers/server');
 const classificationController = require('../controllers/classification');
 
 module.exports = (app) => {
 
     /* Public api */
-    app.get('/api/v1/helloServer', serverController.helloServer);
+    app.get('/api/v1/hello-server', serverController.helloServer);
+    // app.post('/api/v1/classification/recognize', );
 
     /* Private api */
-    app.post('/private/auth/signIn', authController.signIn);
-    app.post('/private/train', classificationController.trainModel);
+    app.get('/private/user', userController.getUser);
+    app.post('/private/auth/sign-in', authController.signIn);
+    app.post('/private/classification/data', classificationController.saveData);
 
     // Catch all routes and return the index file
     app.get('*', (request, response) => {

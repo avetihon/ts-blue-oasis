@@ -47,4 +47,5 @@ node_modules/
 # Project files #
 #################
 documentation/
+build/
 .env

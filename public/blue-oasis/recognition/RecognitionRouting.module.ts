@@ -9,7 +9,7 @@ const recognitionRoutes: Routes = [
 
 @NgModule({
     imports: [ RouterModule.forChild(recognitionRoutes) ],
-    exports: [ RouterModule ]
+    exports: [ RouterModule ],
 })
 class RecognitionRoutingModule {}
 

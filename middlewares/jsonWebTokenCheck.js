@@ -1,4 +1,6 @@
 const jsonWebToken = require('jsonwebtoken');
+const ErrorCodeList = require('../config/errorCodeList');
+const CustomError = require('../config/customError');
 
 const jsonWebTokenCheck = (request, response, next) => {
     let token;
@@ -13,15 +15,15 @@ const jsonWebTokenCheck = (request, response, next) => {
             if (/^Bearer$/i.test(scheme)) {
                 token = credentials;
             } else {
-                return next(new Error('Format is Authorization: Bearer [token]'));
+                return next(new CustomError(ErrorCodeList.AUTHORIZATION_TOKEN_ERROR, 'Format is Authorization: Bearer [token]'));
             }
         } else {
-            return next(new Error('Format is Authorization: Bearer [token]'));
+            return next(new CustomError(ErrorCodeList.AUTHORIZATION_TOKEN_ERROR, 'Format is Authorization: Bearer [token]'));
         }
     }
 
     if (token === void 0) {
-        return next(new Error('No authorization token was found'));
+        return next(new CustomError(ErrorCodeList.AUTHORIZATION_TOKEN_ERROR, 'No authorization token was found'));
     }
 
     jsonWebToken.verify(token, process.env.TOKEN_SECRET, (error, decode) => {

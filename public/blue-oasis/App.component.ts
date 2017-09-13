@@ -3,7 +3,7 @@ import Config from './config/Config';
 
 @Component({
     selector: Config.APPLICATION_SELECTOR,
-    templateUrl: 'blue-oasis/app.component.html',
+    templateUrl: './app.component.html',
 })
 class AppComponent implements OnInit {
     public name: string = 'World';

@@ -1,5 +1,5 @@
-import IState from '../states/IState';
 import Bootstrap from './Bootstrap';
+import IState from '../states/IState';
 
 abstract class BootstrapAbstractState implements IState<Bootstrap> {
 

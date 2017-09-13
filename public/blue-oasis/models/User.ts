@@ -1,6 +1,7 @@
 import IUser from './IUser';
 
 class User implements IUser {
+    public _id: string;
     public username: string;
     public password: string;
     public role: string;

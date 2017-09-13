@@ -1,25 +1,24 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
-import { parseData, handleError } from '../helpers/HTTPHelpers';
-import { environment } from "../environments/environment";
-import IUser from '../models/IUser';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
 
-import 'rxjs/add/operator/toPromise';
+import IUser from '../models/IUser';
+import AdminService from './User.service';
+import { environment } from '../environments/environment';
 
 @Injectable()
 class AuthService {
 
-    private __http: Http;
+    private __http: HttpClient;
+    private __adminService: AdminService;
 
-    public constructor(http: Http) {
+    public constructor(http: HttpClient, adminService: AdminService) {
         this.__http = http;
+        this.__adminService = adminService;
     }
 
-    public signIn(user: IUser): any {
-        return this.__http.post(environment.apiProtectedUrl + '/auth/signIn', user)
-            .toPromise()
-            .then(parseData)
-            .catch(handleError);
+    public signIn(user: IUser): Observable<Object> {
+        return this.__http.post(environment.apiProtectedUrl + '/auth/sign-in', user);
     }
 }
 

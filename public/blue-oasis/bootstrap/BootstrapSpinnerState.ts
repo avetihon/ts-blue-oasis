@@ -40,14 +40,12 @@ class BootstrapSpinnerState extends BootstrapAbstractState {
 
         applicationElement.appendChild(documentFragment);
 
+        this._saveSpinnerElement(applicationElement.firstChild);
         this._toNextState();
     }
 
-    protected _remove(): void {
-        let spinner: HTMLDivElement = document.querySelector(BootstrapSpinnerState.SPINNER_CLASS) as HTMLDivElement;
-        let parentNode: Node = spinner.parentNode;
-
-        parentNode.removeChild(spinner);
+    protected _saveSpinnerElement(spinner: Node): void {
+        this._context.spinner = spinner as HTMLDivElement;
     }
 
     protected _toNextState(): void {

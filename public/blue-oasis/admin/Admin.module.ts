@@ -1,13 +1,11 @@
 import { NgModule } from '@angular/core';
 
-import AdminTrainingComponent from './training/AdminTraining.component';
 import AdminRoutingModule from './AdminRouting.module';
-import AdminService from '../services/Admin.service';
+import AdminTrainingComponent from './training/AdminTraining.component';
 
 @NgModule({
     declarations: [ AdminTrainingComponent ],
     imports: [ AdminRoutingModule ],
-    providers: [ AdminService ]
 })
 class AdminModule {}
 

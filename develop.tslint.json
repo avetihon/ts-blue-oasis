@@ -79,9 +79,16 @@
         "no-unused-variable": true,
         "no-useless-files": true,
         "no-use-before-declare": true,
-        "no-var-keyword": false,
+        "no-var-keyword": true,
         "object-literal-sort-keys": false,
         "only-arrow-functions": true,
+        "ordered-imports": [
+            true,
+            {
+                "import-sources-order": "any",
+                "named-imports-order": "lowercase-first"
+            }
+        ],
         "prefer-const": true,
         "quotemark": [
             true,
@@ -95,6 +102,11 @@
         ],
         "switch-default": true,
         "triple-equals": true,
+        "trailing-comma": [
+            true,
+            { "multiline": { "arrays": "never", "objects": "always" } },
+            { "singleline": { "arrays": "never", "objects": "always" } }
+        ],
         "variable-name": [false],
         "use-isnan": true,
         "use-named-parameter": true,
@@ -107,7 +119,7 @@
         "component-selector": [
             true,
             "element",
-            "my",
+            "cmp",
             "kebab-case"
         ],
         "use-input-property-decorator": true,

@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-import AuthService from '../services/Auth.service';
 import AuthRoutingModule from './AuthRouting.module';
+import AuthService from '../services/Auth.service';
 import SignInComponent from './SignIn.component';
 
 
 @NgModule({
     declarations: [ SignInComponent ],
     imports: [ FormsModule, AuthRoutingModule ],
-    providers: [ AuthService ]
+    providers: [ AuthService ],
 })
 class AuthModule {}
 

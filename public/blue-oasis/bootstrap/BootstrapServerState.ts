@@ -3,14 +3,14 @@ import BootstrapAbstractState from './BootstrapAbstractState';
 import BootstrapErrorList from './BootstrapErrorList';
 import BootstrapErrorState from './BootstrapErrorState';
 import BootstrapSpinnerState from './BootstrapSpinnerState';
-import XMLHttpRequestEventType from '../config/XMLHttpRequestEventType';
 import HTTPRequestMethods from '../config/HTTPRequestMethods';
-import { environment } from "../environments/environment";
+import XMLHttpRequestEventType from '../config/XMLHttpRequestEventType';
+import { environment } from '../environments/environment';
 
 
 class BootstrapServerState extends BootstrapAbstractState {
 
-    public static readonly PATH: string = '/helloServer';
+    public static readonly PATH: string = '/hello-server';
     public constructor() {
         super();
     }
@@ -54,6 +54,10 @@ class BootstrapServerState extends BootstrapAbstractState {
             }
             case XMLHttpRequestEventType.ERROR: {
                 this._toErrorState();
+                break;
+            }
+            default: {
+
             }
         }
     }

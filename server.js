@@ -10,6 +10,7 @@ const bodyParser = require('body-parser');
 const db                = require('./databaseWrapper/database');
 const routes            = require('./routes/routes.js');
 const jsonWebTokenCheck = require('./middlewares/jsonWebTokenCheck');
+const errorHandler      = require('./middlewares/errorHandler');
 
 // Get our API routes
 
@@ -31,7 +32,10 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'build')));
 app.use(express.static(path.join(__dirname, 'public/')));
 
-app.use('/private/train', jsonWebTokenCheck);
+app.use('/private/user', jsonWebTokenCheck);
+app.use('/private/classification', jsonWebTokenCheck);
+
+app.use(errorHandler);
 
 db.connect(process.env.MONGODB_URI);
 

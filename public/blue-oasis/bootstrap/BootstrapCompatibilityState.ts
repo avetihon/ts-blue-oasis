@@ -1,8 +1,8 @@
 import Bootstrap from './Bootstrap';
 import BootstrapAbstractState from './BootstrapAbstractState';
-import BootstrapServerState from './BootstrapServerState';
 import BootstrapErrorState from './BootstrapErrorState';
-import BootstrapErrorList from "./BootstrapErrorList";
+import BootstrapErrorList from './BootstrapErrorList';
+import BootstrapServerState from './BootstrapServerState';
 
 class BootstrapCompatibilityState extends BootstrapAbstractState {
     public constructor() {
@@ -16,7 +16,6 @@ class BootstrapCompatibilityState extends BootstrapAbstractState {
     }
 
     protected _check(): void {
-        (<any>document.documentElement).ontouchstart = new Function();
         if ('ontouchstart' in document.documentElement) {
             this._toNextState();
         } else {

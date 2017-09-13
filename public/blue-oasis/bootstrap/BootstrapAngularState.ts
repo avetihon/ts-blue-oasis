@@ -34,7 +34,11 @@ class BootstrapAngularState extends BootstrapAbstractState {
     }
 
     protected _toErrorState(error: Error): void {
-        // const spinner = this.c
+        const spinner = this._context.spinner;
+        debugger;
+        const parentNode: Node = spinner.parentNode;
+
+        parentNode.removeChild(spinner);
         this._context.error = BootstrapErrorList.ANGULAR_ERROR;
         this._context.setCurrentState(new BootstrapErrorState(error));
     }
