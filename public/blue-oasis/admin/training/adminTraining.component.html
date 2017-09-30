@@ -1,10 +1,14 @@
 <section>
-    <div (click)="setMovementType(MovementTypeList.STAND)">Stand</div>
-    <div (click)="setMovementType(MovementTypeList.WALK)">Walk</div>
+    <div (click)="setMovementType(MovementTypeList.STANDING)">Stand</div>
+    <div (click)="setMovementType(MovementTypeList.WALKING)">Walk</div>
     <div>Current movement: {{ movementType }}</div>
     Training
-    <button (click)="captureMovement();">Capture movement</button>
-    <button (click)="stop();">Stop</button>
-    <button (click)="removeData();">Remove Data</button>
-    <button (click)="send();">Send data</button>
+    <button (click)="captureMovement()">Capture movement</button>
+    <button (click)="stop()">Stop</button>
+    <button (click)="removeData()">Remove Data</button>
+    <button (click)="send()">Send data</button>
+    <div>{{ ticks }}</div>
+
+    <button (click)="train()">Train network</button>
+    <button (click)="normalizeData()">Normalize data</button>
 </section>

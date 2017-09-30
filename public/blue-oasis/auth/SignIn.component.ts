@@ -3,7 +3,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 import AuthService from '../services/Auth.service';
-import AdminService from '../services/User.service';
+import UserService from '../services/User.service';
 import ErrorCodeList from '../config/ErrorCodeList';
 import LocalStorage from '../helpers/LocalStorage';
 import IUser from '../models/IUser';
@@ -19,9 +19,9 @@ class SignInComponent {
     public user: IUser;
     private __router: Router;
     private __authService: AuthService;
-    private __adminService: AdminService;
+    private __adminService: UserService;
 
-    public constructor(router: Router, authService: AuthService, adminService: AdminService) {
+    public constructor(router: Router, authService: AuthService, adminService: UserService) {
         this.user = new User('Yevgeniy', 'qwerty');
         this.__router = router;
         this.__authService = authService;

@@ -9,6 +9,38 @@ class TrainData extends Model {
     save() {
         return this.collection.insertMany(this.fields);
     }
+
+    getAll() {
+        return this.collection.find({}).toArray();
+    }
+
+    getByType() {
+        return this.collection.find({ movementType: this.fields.movementType }).toArray();
+    }
+
+    getMaximum() {
+        return this.collection.aggregate([{
+            $group:
+                {
+                    _id : null,
+                    x: { $max: "$data.x" },
+                    y: { $max: "$data.y" },
+                    z: { $max: "$data.z" }
+                }
+        }]).toArray();
+    }
+
+    getMinimum() {
+        return this.collection.aggregate([{
+            $group:
+                {
+                    _id : null,
+                    x: { $min: "$data.x" },
+                    y: { $min: "$data.y" },
+                    z: { $min: "$data.z" }
+                }
+        }]).toArray();
+    }
 }
 
 db.register(TrainData);

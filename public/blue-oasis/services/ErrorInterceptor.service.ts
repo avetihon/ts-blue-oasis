@@ -2,7 +2,7 @@ import { Injectable, Injector } from '@angular/core';
 import { HttpInterceptor, HttpHandler, HttpRequest, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 
-import AdminService from './User.service';
+import UserService from './User.service';
 import LocalStorage from '../helpers/LocalStorage';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
@@ -17,7 +17,7 @@ class ErrorInterceptorService implements HttpInterceptor {
         return next.handle(req).catch((error: HttpErrorResponse): any => {
             if (error instanceof HttpErrorResponse) {
                 if (error.status === 403) {
-                    const adminService = this.__injector.get(AdminService);
+                    const adminService = this.__injector.get(UserService);
 
                     // remove just in case
                     LocalStorage.removeItem('token');

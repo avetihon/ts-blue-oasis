@@ -28,7 +28,9 @@ class MotionCaptureService {
     }
 
     public stopCapture(): void {
-        this.__subscribe.unsubscribe();
+        if (this.__subscribe !== void 0) {
+            this.__subscribe.unsubscribe();
+        }
     }
 
     public getData(): ITrainData[] {

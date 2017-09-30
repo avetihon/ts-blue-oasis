@@ -2,7 +2,7 @@ const path = require('path');
 const authController = require('../controllers/auth');
 const userController = require('../controllers/user');
 const serverController = require('../controllers/server');
-const classificationController = require('../controllers/classification');
+const neuralController = require('../controllers/neural');
 
 module.exports = (app) => {
 
@@ -13,7 +13,9 @@ module.exports = (app) => {
     /* Private api */
     app.get('/private/user', userController.getUser);
     app.post('/private/auth/sign-in', authController.signIn);
-    app.post('/private/classification/data', classificationController.saveData);
+    app.post('/private/neural/data', neuralController.saveData);
+    app.get('/private/neural/normalize', neuralController.normalizeData);
+    app.post('/private/neural/train', neuralController.trainNetwork);
 
     // Catch all routes and return the index file
     app.get('*', (request, response) => {

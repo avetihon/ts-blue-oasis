@@ -1,6 +1,6 @@
 class MovementTypeList {
-    public static readonly STAND: string = 'stand';
+    public static readonly STANDING: string = 'standing';
 
-    public static readonly WALK: string = 'walk';
+    public static readonly WALKING: string = 'walking';
 }
 export default MovementTypeList;
