@@ -113,7 +113,7 @@
         "directive-selector": [
             true,
             "attribute",
-            "my",
+            "drv",
             "camelCase"
         ],
         "component-selector": [

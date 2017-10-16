@@ -2,6 +2,18 @@
     --gutter: 1rem;
 }
 
+/* Man theme */
+.t-pink {
+    --t-background: #ffe1f8;
+    --t-main-title: #ca8bba;
+}
+
+/* Woman theme */
+.t-blue {
+    --t-background: #e1e6ff;
+    --t-main-title: #7f9fd2;
+}
+
 @media (min-width: 576px) {
 
 }

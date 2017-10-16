@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 
-import AuthService from '../services/Auth.service';
+import AuthService from './Auth.service';
 import UserService from '../services/User.service';
 import ErrorCodeList from '../config/ErrorCodeList';
 import LocalStorage from '../helpers/LocalStorage';
@@ -19,13 +19,13 @@ class SignInComponent {
     public user: IUser;
     private __router: Router;
     private __authService: AuthService;
-    private __adminService: UserService;
+    private __userService: UserService;
 
-    public constructor(router: Router, authService: AuthService, adminService: UserService) {
+    public constructor(router: Router, authService: AuthService, userService: UserService) {
         this.user = new User('Yevgeniy', 'qwerty');
         this.__router = router;
         this.__authService = authService;
-        this.__adminService = adminService;
+        this.__userService = userService;
     }
 
     public submit(): void {
@@ -34,7 +34,7 @@ class SignInComponent {
 
     protected _submitHandler = (response: IAuthResponse): void => {
         LocalStorage.setItem('token', response.token);
-        this.__adminService.setUser(response.user);
+        this.__userService.setUser(response.user);
         this.__router.navigate(['/admin/training']);
     }
 

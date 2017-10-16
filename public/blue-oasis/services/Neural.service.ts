@@ -8,18 +8,17 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 class NeuralService {
 
-    public constructor(private __http: HttpClient) {}
+    private __http: HttpClient;
+    public constructor(http: HttpClient) {
+        this.__http = http;
+    }
 
-    public sendTrainData(trainData: ITrainData[]): Observable<Object> {
+    public sendTrainData(trainData: ITrainData[]): Observable<object> {
         return this.__http.post(environment.apiProtectedUrl + '/neural/data', trainData);
     }
 
-    public normalizeData(): Observable<Object> {
-        return this.__http.get(environment.apiProtectedUrl + '/neural/normalize');
-    }
-
-    public train(type: string): Observable<Object> {
-        return this.__http.post(environment.apiProtectedUrl + '/neural/train', { type });
+    public train(movementType: string): Observable<object> {
+        return this.__http.post(environment.apiProtectedUrl + '/neural/train', { movementType });
     }
 }
 

@@ -14,7 +14,6 @@ module.exports = (app) => {
     app.get('/private/user', userController.getUser);
     app.post('/private/auth/sign-in', authController.signIn);
     app.post('/private/neural/data', neuralController.saveData);
-    app.get('/private/neural/normalize', neuralController.normalizeData);
     app.post('/private/neural/train', neuralController.trainNetwork);
 
     // Catch all routes and return the index file

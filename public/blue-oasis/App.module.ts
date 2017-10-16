@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -13,36 +13,55 @@ import ErrorInterceptorService from './services/ErrorInterceptor.service';
 import ModeModule from './mode/Mode.module';
 import NeuralService from './services/Neural.service';
 import MotionCaptureService from './services/MotionCapture.service';
+import ThemeSelectorComponent from './themeSelector/ThemeSelector.component';
 import PageNotFoundComponent from './pageNotFound/PageNotFound.component';
 import RecognitionModule from './recognition/Recognition.module';
 import TimerService from './services/Timer.service';
-
+import SharedComponentsModule from './shared/SharedComponents.module';
+import SettingService from './services/Setting.service';
+import ThemeService from './services/Theme.service';
+import settingFactory from './services/Setting.factory';
 
 @NgModule({
-    bootstrap: [ AppComponent ],
+    bootstrap: [AppComponent],
     declarations: [
         AppComponent,
+        ThemeSelectorComponent,
         PageNotFoundComponent
     ],
     imports: [
         BrowserModule,
         HttpClientModule,
+        SharedComponentsModule,
         ModeModule,
         RecognitionModule,
         AuthModule,
         AdminModule,
         AppRoutingModule
     ],
-    providers: [UserService, AuthGuard, NeuralService, MotionCaptureService, TimerService, {
-        provide: HTTP_INTERCEPTORS,
-        useClass: AuthInterceptorService,
-        multi: true,
-    }, {
-        provide: HTTP_INTERCEPTORS,
-        useClass: ErrorInterceptorService,
-        multi: true,
-    }],
+    providers: [
+        UserService,
+        AuthGuard,
+        NeuralService,
+        MotionCaptureService,
+        TimerService,
+        SettingService,
+        ThemeService, {
+            provide: APP_INITIALIZER,
+            useFactory: settingFactory,
+            deps: [SettingService],
+            multi: true,
+        }, {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptorService,
+            multi: true,
+        }, {
+            provide: HTTP_INTERCEPTORS,
+            useClass: ErrorInterceptorService,
+            multi: true,
+        }],
 })
-class AppModule {}
+class AppModule {
+}
 
 export default AppModule;

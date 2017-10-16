@@ -1,0 +1,10 @@
+<div class="c-theme-selector" (click)="setNewTheme()">
+    <img class="c-theme-selector__image"
+         src="../../assets/images/theme/moon.svg"
+         alt="theme-selector"
+         *ngIf="themeList.PINK === currentTheme">
+    <img class="c-theme-selector__image"
+         src="../../assets/images/theme/full-moon.svg"
+         alt="theme-selector"
+         *ngIf="themeList.BLUE === currentTheme">
+</div>

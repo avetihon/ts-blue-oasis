@@ -8,7 +8,7 @@
     "lint": "tslint -c develop.tslint.json -p develop.tsconfig.json --type-check",
     "develop": "webpack --config webpack.config.js --watch",
     "server": "nodemon --inspect server.js",
-    "create:user": "node ./utils/createDefaultUser.js"
+    "create:user": "node ./utils/createUser.js"
   },
   "keywords": [
     "ts",

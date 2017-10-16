@@ -1,0 +1,10 @@
+.c-theme-selector {
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+    width: 20px;
+
+    &__image {
+        display: block;
+    }
+}

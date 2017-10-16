@@ -17,16 +17,18 @@ class UserService {
 
     public constructor(http: HttpClient) {
         this.__http = http;
+        this.__user = null;
     }
 
-    public setUser(user: IUser | null): void {
+    public  setUser(user: IUser | null): void {
         this.__user = user;
     }
 
-    public getUser(): Observable<Object> {
-        if (this.__user === void 0) {
+    public getUser(): Observable<object> {
+        if (this.__user === null) {
             return this.__http.get(environment.apiProtectedUrl + '/user').map((response: any) => {
                 this.__user = response.user;
+
                 return this.__user;
             });
         }

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import AuthRoutingModule from './AuthRouting.module';
-import AuthService from '../services/Auth.service';
+import AuthService from './Auth.service';
 import SignInComponent from './SignIn.component';
 
 

@@ -2,9 +2,13 @@
 
 @import './properties.css';
 @import './common.css';
+@import './shared.css';
 @import './utility.css';
 @import './shame.css';
 
-
 @import '../../blue-oasis/bootstrap/bootstrapSpinner.css';
 @import '../../blue-oasis/bootstrap/bootstrapError.css';
+@import '../../blue-oasis/app.component.css';
+@import '../../blue-oasis/themeSelector/themeSelector.component.css';
+@import '../../blue-oasis/mode/mode.component.css';
+@import '../../blue-oasis/admin/training/adminTraining.component.css';

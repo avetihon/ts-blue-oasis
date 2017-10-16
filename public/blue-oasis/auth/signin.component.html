@@ -1,14 +1,13 @@
-<section>
-    <form (ngSubmit)="submit()">
-        <h1>Sign In</h1>
-        <div>
-            <label for=""></label>
-            <input type="text" [(ngModel)]="user.username" name="username">
-        </div>
-        <div>
-            <label for=""></label>
-            <input type="password" [(ngModel)]="user.password" name="password">
-        </div>
-        <button type="submit">Sign In. Yay!</button>
-    </form>
-</section>
+<h1 class="s-main-title">Sign In</h1>
+<form (ngSubmit)="submit()">
+
+    <div>
+        <label for=""></label>
+        <input type="text" [(ngModel)]="user.username" name="username">
+    </div>
+    <div>
+        <label for=""></label>
+        <input type="password" [(ngModel)]="user.password" name="password">
+    </div>
+    <button type="submit">Sign In. Yay!</button>
+</form>

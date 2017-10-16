@@ -7,6 +7,7 @@ class TrainData extends Model {
     }
 
     save() {
+        //this.fields = [{data: {x: 0, y: 0, z: 0}, movementType: null}]
         return this.collection.insertMany(this.fields);
     }
 

@@ -1,14 +1,38 @@
+<h1 class="s-main-title">Classifier Training</h1>
+<section class="c-training__movement-wrapper">
+    <button class="c-training__movement-type"
+            (click)="setMovementType(MovementTypeList.STANDING)"
+            [ngClass]="{'is-active': movementType === MovementTypeList.STANDING}">
+        <img class="c-training__movement-type-image"
+             src="../../../assets/images/training/standing-pink.svg"
+             alt="standing-movement">
+        <p class="c-training__movement-type-title">Standing</p>
+    </button>
+    <!-- /.c-training__movement-type -->
+    <button class="c-training__movement-type"
+            (click)="setMovementType(MovementTypeList.WALKING)"
+            [ngClass]="{'is-active': movementType === MovementTypeList.WALKING}">
+        <img class="c-training__movement-type-image"
+             src="../../../assets/images/training/walking-pink.svg"
+             alt="walking-movement">
+        <p class="c-training__movement-type-title">Walking</p>
+    </button>
+    <!-- /.c-training__movement-type -->
+</section>
+<!-- /.c-training__movement-wrapper -->
+<p class="c-training__current-movement">Current movement:
+    <span class="c-training__current-movement-type" *ngIf="movementType; else defaultMovement">{{ movementType }}</span>
+    <ng-template #defaultMovement>{{ defaultMovementType }}</ng-template>
+</p>
 <section>
-    <div (click)="setMovementType(MovementTypeList.STANDING)">Stand</div>
-    <div (click)="setMovementType(MovementTypeList.WALKING)">Walk</div>
-    <div>Current movement: {{ movementType }}</div>
-    Training
+    <h2>Collect data</h2>
     <button (click)="captureMovement()">Capture movement</button>
     <button (click)="stop()">Stop</button>
     <button (click)="removeData()">Remove Data</button>
-    <button (click)="send()">Send data</button>
+    <button (click)="send()">Save data to DB</button>
     <div>{{ ticks }}</div>
-
-    <button (click)="train()">Train network</button>
-    <button (click)="normalizeData()">Normalize data</button>
 </section>
+<section></section>
+
+<button (click)="train()">Train network</button>
+

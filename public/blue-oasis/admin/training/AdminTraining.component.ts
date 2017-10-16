@@ -8,6 +8,8 @@ import MotionCaptureService from '../../services/MotionCapture.service';
 import NeuralService from '../../services/Neural.service';
 import TimerService from '../../services/Timer.service';
 
+const DEFAULT_MOVEMENT: string = 'Not selected';
+
 @Component({
     selector: 'cmp-training',
     templateUrl: './adminTraining.component.html',
@@ -16,16 +18,25 @@ class AdminTrainingComponent {
 
     public ticks: number;
     public MovementTypeList: MovementTypeList;
-    public movementType: keyof typeof MovementTypeList;
+    public movementType: string;
+    public defaultMovementType: string;
 
-    public constructor(private __neuralService: NeuralService,
-                       private __motionCaptureService: MotionCaptureService,
-                       private __timerService: TimerService) {
+    private __neuralService: NeuralService;
+    private __motionCaptureService: MotionCaptureService;
+    private __timerService: TimerService;
+
+    public constructor(neuralService: NeuralService,
+                       motionCaptureService: MotionCaptureService,
+                       timerService: TimerService) {
+        this.__neuralService = neuralService;
+        this.__motionCaptureService = motionCaptureService;
+        this.__timerService = timerService;
+        this.defaultMovementType = DEFAULT_MOVEMENT;
         this.MovementTypeList = MovementTypeList;
     }
 
-    public setMovementType(type: keyof typeof MovementTypeList): void {
-        this.movementType = type;
+    public setMovementType(movementType: keyof typeof MovementTypeList): void {
+        this.movementType = movementType;
     }
 
     public captureMovement(): void {
@@ -50,47 +61,23 @@ class AdminTrainingComponent {
 
     public send(): void {
         const trainData: ITrainData[] = this.__motionCaptureService.getData();
-        this.__neuralService
-            .sendTrainData(trainData)
-            .subscribe(this._sendNextHandler, this._sendErrorHandler);
-    }
-
-    protected _sendNextHandler = (response: ITrainResponse): void => {
-        console.log(response);
-    }
-
-    protected _sendErrorHandler = (error: HttpErrorResponse): void => {
-
-    }
-
-    public normalizeData(): void {
-        this.__neuralService
-            .normalizeData()
-            .subscribe(this._normalizeDataNextHandler, this._normalizeDataErrorHandler)
-    }
-
-    protected _normalizeDataNextHandler = (response: ITrainResponse): void => {
-        console.log(response);
-    }
-
-    protected _normalizeDataErrorHandler = (error: HttpErrorResponse): void => {
-
+        if (trainData.length > 0) {
+            this.__neuralService
+                .sendTrainData(trainData)
+                .subscribe((response: ITrainResponse): void => {
+                    console.log(response);
+                }, (error: HttpErrorResponse): void => {});
+        }
     }
 
     public train(): void {
         if (this.movementType !== void 0) {
             this.__neuralService
                 .train(this.movementType)
-                .subscribe(this._trainNextHandler, this._trainErrorHandler);
+                .subscribe((response: ITrainResponse): void => {
+                    console.log(response);
+                }, (error: HttpErrorResponse): void => {});
         }
-    }
-
-    protected _trainNextHandler = (response: ITrainResponse): void => {
-        console.log(response);
-    }
-
-    protected _trainErrorHandler = (error: HttpErrorResponse): void => {
-
     }
 }
 

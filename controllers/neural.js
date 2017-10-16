@@ -4,10 +4,6 @@ const NormalizedTrainData = require('../models/normalizedTrainData');
 const ErrorCodeList = require('../config/errorCodeList');
 const HTTPStatusCodes = require('../config/HTTPStatusCodes');
 
-const _train = _ => {
-
-};
-
 const _normalizeFormula = (value, maximum, minimum) => {
     return (value - minimum) / (maximum - minimum);
 };
@@ -26,23 +22,7 @@ const _normalizeHelper = (trainDataList, maximumValues, minimumValues) => {
     return trainDataList;
 };
 
-const saveData = (request, response) => {
-    const trainData = new TrainData(request.body);
-    trainData.save()
-        .then(_ => response.status(HTTPStatusCodes.OK).json({ success: true }))
-        .catch(error => {
-            const json = {
-                success: false,
-                message: error.message,
-                code: ErrorCodeList.UNEXPECTED_DATA_ERROR
-            };
-            return response
-                .status(HTTPStatusCodes.INTERNAL_SERVER_ERROR)
-                .json(json);
-    });
-};
-
-const normalizeData = (request, response) => {
+const _normalizeData = _ => {
     const trainData = new TrainData();
     let normalizedTrainData;
     let dataList;
@@ -50,7 +30,7 @@ const normalizeData = (request, response) => {
     let minimumValues;
     let normalizedData;
 
-    trainData.getAll()
+    return trainData.getAll()
         .then(data => {
             dataList = data;
             return trainData.getMaximum();
@@ -67,7 +47,33 @@ const normalizeData = (request, response) => {
             normalizedTrainData = new NormalizedTrainData(data);
             return normalizedTrainData.remove();
         })
-        .then(_ => normalizedTrainData.save())
+        .then(_ => normalizedTrainData.save());
+};
+
+const _prepareDataToTrain = (dataList, movementType) => {
+    let i;
+    let len;
+    let trainData = [];
+    for (i = 0, len = dataList.length; i < len; i += 1) {
+        trainData.push({
+            input: dataList[i].data,
+            output: {
+                [movementType]: 1
+            }
+        });
+    }
+
+    return trainData;
+};
+
+const _train = _ => {
+
+};
+
+const saveData = (request, response) => {
+    const trainData = new TrainData(request.body);
+    trainData.save()
+        .then(_ => _normalizeData())
         .then(_ => response.status(HTTPStatusCodes.OK).json({ success: true }))
         .catch(error => {
             const json = {
@@ -75,27 +81,38 @@ const normalizeData = (request, response) => {
                 message: error.message,
                 code: ErrorCodeList.UNEXPECTED_DATA_ERROR
             };
-            response
+            return response
                 .status(HTTPStatusCodes.INTERNAL_SERVER_ERROR)
                 .json(json);
-        });
+    });
 };
 
 const trainNetwork = (request, response) => {
-    const net = new brain.NeuralNetwork();
+    const normalizeTrainData = new NormalizedTrainData(request.body);
 
-    net.train([{input: { r: 0.03, g: 0.7, b: 0.5 }, output: { black: 1 }},
-        {input: { r: 0.16, g: 0.09, b: 0.2 }, output: { white: 1 }},
-        {input: { r: 0.5, g: 0.5, b: 1.0 }, output: { white: 1 }}]);
+    return normalizeTrainData.getByType()
+        .then(dataList => {
+            return _prepareDataToTrain(dataList, request.body.movementType);
+        })
+        .then(trainData => {
+            const net = new brain.NeuralNetwork();
+            net.train(trainData);
+            return trainData;
+        })
+        .then(trainData => response.status(HTTPStatusCodes.OK).json({ success: true, trainData }));
 
-    const output = net.run({ r: 1, g: 0.4, b: 0 });
-    console.log(request.body);
-    console.log(output);
-    response.status(HTTPStatusCodes.OK).json({ success: true });
+
+    // net.train([{input: { r: 0.03, g: 0.7, b: 0.5 }, output: { black: 1 }},
+    //     {input: { r: 0.16, g: 0.09, b: 0.2 }, output: { white: 1 }},
+    //     {input: { r: 0.5, g: 0.5, b: 1.0 }, output: { white: 1 }}]);
+    //
+    // const output = net.run({ r: 1, g: 0.4, b: 0 });
+    // console.log(request.body);
+    // console.log(output);
+
 };
 
 module.exports = {
     saveData,
-    normalizeData,
     trainNetwork,
 };

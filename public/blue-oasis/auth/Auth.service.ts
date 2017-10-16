@@ -3,18 +3,18 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
 import IUser from '../models/IUser';
-import UserService from './User.service';
+import UserService from '../services/User.service';
 import { environment } from '../environments/environment';
 
 @Injectable()
 class AuthService {
 
     private __http: HttpClient;
-    private __adminService: UserService;
+    private __userService: UserService;
 
-    public constructor(http: HttpClient, adminService: UserService) {
+    public constructor(http: HttpClient, userService: UserService) {
         this.__http = http;
-        this.__adminService = adminService;
+        this.__userService = userService;
     }
 
     public signIn(user: IUser): Observable<Object> {

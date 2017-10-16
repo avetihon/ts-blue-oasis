@@ -1,5 +1,5 @@
 import { Injectable, Injector } from '@angular/core';
-import { HttpInterceptor, HttpHandler, HttpRequest, HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 import UserService from './User.service';
@@ -11,19 +11,24 @@ import 'rxjs/add/observable/throw';
 @Injectable()
 class ErrorInterceptorService implements HttpInterceptor {
 
-    public constructor(private __router: Router, private __injector: Injector) {}
+    private __router: Router;
+    private __injector: Injector;
+    public constructor(router: Router, injector: Injector) {
+        this.__router = router;
+        this.__injector = injector;
+    }
 
     public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<any> {
         return next.handle(req).catch((error: HttpErrorResponse): any => {
             if (error instanceof HttpErrorResponse) {
                 if (error.status === 403) {
-                    const adminService = this.__injector.get(UserService);
+                    const userService = this.__injector.get(UserService);
 
                     // remove just in case
                     LocalStorage.removeItem('token');
 
                     // remove saved user
-                    adminService.setUser(null);
+                    userService.setUser(null);
 
                     // redirect to signin page
                     this.__router.navigate(['/signin']);
