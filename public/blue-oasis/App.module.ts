@@ -11,7 +11,7 @@ import UserService from './services/User.service';
 import AuthInterceptorService from './services/AuthInterceptor.service';
 import ErrorInterceptorService from './services/ErrorInterceptor.service';
 import ModeModule from './mode/Mode.module';
-import NeuralService from './services/Neural.service';
+import MLService from './services/ML.service';
 import MotionCaptureService from './services/MotionCapture.service';
 import ThemeSelectorComponent from './themeSelector/ThemeSelector.component';
 import PageNotFoundComponent from './pageNotFound/PageNotFound.component';
@@ -42,7 +42,7 @@ import settingFactory from './services/Setting.factory';
     providers: [
         UserService,
         AuthGuard,
-        NeuralService,
+        MLService,
         MotionCaptureService,
         TimerService,
         SettingService,

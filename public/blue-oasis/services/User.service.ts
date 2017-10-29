@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import IUser from '../models/IUser';
+import ISuccessResponse from '../models/ISuccessResponse';
 import { environment } from '../environments/environment';
 import { Observable } from 'rxjs/Observable';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/of';
-
 
 @Injectable()
 class UserService {
@@ -20,14 +20,14 @@ class UserService {
         this.__user = null;
     }
 
-    public  setUser(user: IUser | null): void {
+    public setUser(user: IUser | null): void {
         this.__user = user;
     }
 
     public getUser(): Observable<object> {
         if (this.__user === null) {
-            return this.__http.get(environment.apiProtectedUrl + '/user').map((response: any) => {
-                this.__user = response.user;
+            return this.__http.get(environment.apiProtectedUrl + '/user').map((response: ISuccessResponse) => {
+                this.__user = response.data as IUser;
 
                 return this.__user;
             });

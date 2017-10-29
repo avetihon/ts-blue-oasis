@@ -6,7 +6,7 @@ import { environment } from '../environments/environment';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
-class NeuralService {
+class MLService {
 
     private __http: HttpClient;
     public constructor(http: HttpClient) {
@@ -14,12 +14,12 @@ class NeuralService {
     }
 
     public sendTrainData(trainData: ITrainData[]): Observable<object> {
-        return this.__http.post(environment.apiProtectedUrl + '/neural/data', trainData);
+        return this.__http.post(environment.apiProtectedUrl + '/ml/data', trainData);
     }
 
     public train(movementType: string): Observable<object> {
-        return this.__http.post(environment.apiProtectedUrl + '/neural/train', { movementType });
+        return this.__http.post(environment.apiProtectedUrl + '/ml/train', { movementType });
     }
 }
 
-export default NeuralService;
+export default MLService;

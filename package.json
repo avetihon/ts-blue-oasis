@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "tslint -c develop.tslint.json -p develop.tsconfig.json --type-check",
     "develop": "webpack --config webpack.config.js --watch",
-    "server": "nodemon --inspect server.js",
+    "server": "nodemon --inspect BlueOasisApp.js",
     "create:user": "node ./utils/createUser.js"
   },
   "keywords": [
@@ -50,7 +50,7 @@
     "body-parser": "^1.17.2",
     "brain.js": "^1.0.0-rc.3",
     "codelyzer": "^3.1.2",
-    "dotenv": "^4.0.0",
+    "dotenv-safe": "^4.0.4",
     "express": "^4.15.4",
     "jsonwebtoken": "^7.4.2",
     "mongodb": "^2.2.31",

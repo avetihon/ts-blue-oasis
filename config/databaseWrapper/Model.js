@@ -1,4 +1,15 @@
+/**
+ * Model class
+ * @class
+ */
+
 class Model {
+
+    /**
+     * Constructs the MyError class
+     * @param {Object} fields values with which to create the document
+     * @constructor
+     */
     constructor(fields = {}) {
         this.fields = fields;
         this.collection = this._connection.collection(this.getCollectionName());

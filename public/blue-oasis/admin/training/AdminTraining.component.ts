@@ -5,7 +5,7 @@ import ITrainData from '../../models/ITrainData';
 import ITrainResponse from '../../models/ITrainResponse';
 import MovementTypeList from '../../config/MovementTypeList';
 import MotionCaptureService from '../../services/MotionCapture.service';
-import NeuralService from '../../services/Neural.service';
+import MLService from '../../services/ML.service';
 import TimerService from '../../services/Timer.service';
 
 const DEFAULT_MOVEMENT: string = 'Not selected';
@@ -21,14 +21,14 @@ class AdminTrainingComponent {
     public movementType: string;
     public defaultMovementType: string;
 
-    private __neuralService: NeuralService;
+    private __mlService: MLService;
     private __motionCaptureService: MotionCaptureService;
     private __timerService: TimerService;
 
-    public constructor(neuralService: NeuralService,
+    public constructor(mlService: MLService,
                        motionCaptureService: MotionCaptureService,
                        timerService: TimerService) {
-        this.__neuralService = neuralService;
+        this.__mlService = mlService;
         this.__motionCaptureService = motionCaptureService;
         this.__timerService = timerService;
         this.defaultMovementType = DEFAULT_MOVEMENT;
@@ -62,7 +62,7 @@ class AdminTrainingComponent {
     public send(): void {
         const trainData: ITrainData[] = this.__motionCaptureService.getData();
         if (trainData.length > 0) {
-            this.__neuralService
+            this.__mlService
                 .sendTrainData(trainData)
                 .subscribe((response: ITrainResponse): void => {
                     console.log(response);
@@ -72,7 +72,7 @@ class AdminTrainingComponent {
 
     public train(): void {
         if (this.movementType !== void 0) {
-            this.__neuralService
+            this.__mlService
                 .train(this.movementType)
                 .subscribe((response: ITrainResponse): void => {
                     console.log(response);

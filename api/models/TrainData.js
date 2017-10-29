@@ -1,5 +1,5 @@
-const db = require('../databaseWrapper/database');
-const Model = require('../databaseWrapper/model');
+const db = require('../../config/databaseWrapper/DatabaseConnector');
+const Model = require('../../config/databaseWrapper/Model');
 
 class TrainData extends Model {
     constructor(fields) {
@@ -44,6 +44,6 @@ class TrainData extends Model {
     }
 }
 
-db.register(TrainData);
+db.registerModel(TrainData);
 
 module.exports = TrainData;

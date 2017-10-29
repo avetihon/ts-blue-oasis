@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
+import { environment } from '../environments/environment';
 
 import IUser from '../models/IUser';
 import UserService from '../services/User.service';
-import { environment } from '../environments/environment';
+import IAuthResponse from '../models/IAuthResponse';
 
 @Injectable()
 class AuthService {
@@ -17,8 +18,8 @@ class AuthService {
         this.__userService = userService;
     }
 
-    public signIn(user: IUser): Observable<Object> {
-        return this.__http.post(environment.apiProtectedUrl + '/auth/sign-in', user);
+    public signIn(user: IUser): Observable<IAuthResponse> {
+        return this.__http.post(environment.apiProtectedUrl + '/authorize', user);
     }
 }
 

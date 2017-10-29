@@ -1,14 +1,12 @@
 const MongoClient = require('mongodb').MongoClient;
 const EventEmitter = require('events').EventEmitter;
+const DATABASE_EVENT_LIST = require('../constants/DatabaseEventList');
+const DATABASE_STATE_LIST = require('../constants/DatabaseStateList');
 
-const STATE_CONNECTED = 0;
-const STATE_CONNECTING = 1;
-const STATE_DISCONNECTED = 2;
-
-class Database extends EventEmitter {
+class DatabaseConnector extends EventEmitter {
     constructor() {
         super();
-        this.state = STATE_DISCONNECTED;
+        this.state = DATABASE_STATE_LIST.STATE_DISCONNECTED;
         this.models = [];
     }
 
@@ -17,31 +15,32 @@ class Database extends EventEmitter {
             return Promise.resolve(this._connection);
         }
 
-        this.state = STATE_CONNECTING;
+        this.state = DATABASE_STATE_LIST.STATE_CONNECTING;
 
         this._connectionPromise = MongoClient.connect(url)
             .then(db => {
-                this.state = STATE_CONNECTED;
+                this.state = DATABASE_STATE_LIST.STATE_CONNECTED;
                 this._connection = db;
                 this._compileModels();
-                this.emit('open');
+                this.emit(DATABASE_EVENT_LIST.OPEN);
 
                 return db;
-            });
+            })
+            .catch(error => console.error(error));
 
         return this._connectionPromise;
     }
 
     connection() {
-        if (this.state === STATE_DISCONNECTED) {
+        if (this.state === DATABASE_STATE_LIST.STATE_DISCONNECTED) {
             return Promise.reject(new Error('Database is disconnected.'));
         }
 
-        if (this.state === STATE_CONNECTED) {
+        if (this.state === DATABASE_STATE_LIST.STATE_CONNECTED) {
             return Promise.resolve(this._connection);
         }
 
-        if (this.state === STATE_CONNECTING) {
+        if (this.state === DATABASE_STATE_LIST.STATE_CONNECTING) {
             return this._connectionPromise;
         }
     }
@@ -50,11 +49,12 @@ class Database extends EventEmitter {
         return this.connection()
             .then(db => {
                 db.close();
-                this.state = STATE_DISCONNECTED;
+                this.emit(DATABASE_EVENT_LIST.CLOSE);
+                this.state = DATABASE_STATE_LIST.STATE_DISCONNECTED;
             });
     }
 
-    register(model) {
+    registerModel(model) {
         model.prototype._database = this;
         this.models.push(model);
     }
@@ -69,5 +69,5 @@ class Database extends EventEmitter {
     }
 }
 
-module.exports = new Database();
+module.exports = new DatabaseConnector();
 

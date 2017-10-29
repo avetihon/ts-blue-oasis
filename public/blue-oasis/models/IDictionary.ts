@@ -1,5 +1,5 @@
 interface IDictionary<T> {
-    [key: string]: T;
+    [propName: string]: T;
 }
 
 export default IDictionary;

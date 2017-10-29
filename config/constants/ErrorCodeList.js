@@ -1,0 +1,19 @@
+/**
+ * Internal and API error code list
+ */
+const ERROR_CODE_LIST = {};
+
+/* Bootstrap Error */
+ERROR_CODE_LIST.RESOLVE_SETTING_LIST_ERROR = 100;
+
+/* Client Auth Error */
+ERROR_CODE_LIST.USER_NOT_FOUND = 200;
+ERROR_CODE_LIST.INCORRECT_PASSWORD = 201;
+ERROR_CODE_LIST.AUTHORIZATION_TOKEN_ERROR = 202;
+
+/* Server Data Error */
+ERROR_CODE_LIST.UNEXPECTED_DATA_ERROR = 300;
+
+Object.freeze(ERROR_CODE_LIST);
+
+module.exports = ERROR_CODE_LIST;

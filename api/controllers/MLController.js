@@ -1,8 +1,7 @@
 const brain = require('brain.js');
-const TrainData = require('../models/trainData');
-const NormalizedTrainData = require('../models/normalizedTrainData');
-const ErrorCodeList = require('../config/errorCodeList');
-const HTTPStatusCodes = require('../config/HTTPStatusCodes');
+const TrainData = require('../models/TrainData');
+const NormalizedTrainData = require('../models/NormalizedTrainData');
+const wrapResponse = require('../helpers/wrapResponse');
 
 const _normalizeFormula = (value, maximum, minimum) => {
     return (value - minimum) / (maximum - minimum);
@@ -70,24 +69,12 @@ const _train = _ => {
 
 };
 
-const saveData = (request, response) => {
+const saveData = (request) => {
     const trainData = new TrainData(request.body);
-    trainData.save()
-        .then(_ => _normalizeData())
-        .then(_ => response.status(HTTPStatusCodes.OK).json({ success: true }))
-        .catch(error => {
-            const json = {
-                success: false,
-                message: error.message,
-                code: ErrorCodeList.UNEXPECTED_DATA_ERROR
-            };
-            return response
-                .status(HTTPStatusCodes.INTERNAL_SERVER_ERROR)
-                .json(json);
-    });
+    trainData.save().then(_ => _normalizeData());
 };
 
-const trainNetwork = (request, response) => {
+const trainClassifier = (request) => {
     const normalizeTrainData = new NormalizedTrainData(request.body);
 
     return normalizeTrainData.getByType()
@@ -98,8 +85,7 @@ const trainNetwork = (request, response) => {
             const net = new brain.NeuralNetwork();
             net.train(trainData);
             return trainData;
-        })
-        .then(trainData => response.status(HTTPStatusCodes.OK).json({ success: true, trainData }));
+        });
 
 
     // net.train([{input: { r: 0.03, g: 0.7, b: 0.5 }, output: { black: 1 }},
@@ -113,6 +99,6 @@ const trainNetwork = (request, response) => {
 };
 
 module.exports = {
-    saveData,
-    trainNetwork,
+    saveData: wrapResponse(saveData),
+    trainClassifier: wrapResponse(trainClassifier),
 };
