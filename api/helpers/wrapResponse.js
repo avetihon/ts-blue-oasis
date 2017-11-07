@@ -1,4 +1,5 @@
 const WError = require('../../config/WError');
+const ERROR_CODE_LIST = require('../../config/constants/ErrorCodeList');
 const HTTP_STATUS_CODE_LIST = require('../../config/constants/HTTPStatusCodeList');
 
 const __wrapSuccess = (response, result) => response

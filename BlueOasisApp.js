@@ -41,6 +41,7 @@ app.use(express.static(path.join(__dirname, 'public/')));
 // Add error handling
 app.use(require('./config/routes'));
 app.use(require('./config/middleware').errorHandler);
+app.set('port', settings.http.port);
 
 /**
  * Create HTTP server.

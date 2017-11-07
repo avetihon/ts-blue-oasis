@@ -10,13 +10,13 @@
     padding: 0.4rem;
     margin-bottom: 0.6em;
     background: #ffffff;
-    box-shadow: 0 0 5px 2px #f1f1f1;
+    box-shadow: 0 0 15px 1px #ececec;
     border-radius: 14px;
-    border: 1px solid #f1f1f1;
+    border: 2px solid transparent;
 
     &.is-active {
         box-shadow: none;
-        /*border: 1px solid #fcd2ff;*/
+        border: 2px solid var(--t-sub-title);
     }
 
     &-image {
@@ -25,7 +25,7 @@
 
     &-title {
         margin: 0;
-        color: #d295c8;
+        color: var(--t-sub-title);
     }
 }
 
@@ -34,5 +34,51 @@
 
     &-type {
         text-transform: capitalize;
+    }
+}
+
+.c-training {
+    &__time {
+        margin-top: 0.3rem;
+        text-align: center;
+    }
+
+    &__response {
+        margin-left: 0.2rem;
+    }
+
+    &__collect-title {
+        margin-bottom: 0.4rem;
+    }
+
+    &__collect-icon {
+        width: 30px;
+        vertical-align: -48%;
+    }
+
+    &__collect-button {
+        padding: 0.22rem 0.8rem 0.22rem 0.25rem;
+        border: 1px solid #ececec;
+        background: transparent;
+        border-radius: 20px;
+
+        &--remove {
+            padding: 0.22rem 0.25rem;
+        }
+
+        &--train {
+            padding: 0.22rem 0.8rem 0.22rem 0.75rem;
+            vertical-align: bottom;
+        }
+
+        &--save {
+            margin-top: 0.6rem;
+        }
+
+        &--chart {
+            display: inline-block;
+            padding: 0.22rem 0.55rem 0.22rem 0.85rem;
+            text-decoration: none;
+        }
     }
 }

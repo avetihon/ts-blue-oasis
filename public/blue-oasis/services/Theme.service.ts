@@ -26,6 +26,7 @@ class ThemeService {
             nextTheme = this.__themeList[0];
         }
 
+        this.__settingService.updateSettings('theme', nextTheme);
         this.__themeSubject.next(nextTheme);
     }
 

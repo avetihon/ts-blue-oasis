@@ -1,13 +1,15 @@
-<h1 class="s-main-title">Sign In</h1>
+<h1 class="s-main-title c-auth__title">Sign In</h1>
 <form (ngSubmit)="submit()">
 
-    <div>
+    <div class="c-auth__form-wrapper">
         <label for=""></label>
-        <input type="text" [(ngModel)]="user.username" name="username">
+        <input type="text" class="c-auth__input" name="username" placeholder="Enter username"
+               [(ngModel)]="user.username">
     </div>
-    <div>
+    <div class="c-auth__form-wrapper">
         <label for=""></label>
-        <input type="password" [(ngModel)]="user.password" name="password">
+        <input type="password" class="c-auth__input" name="password" placeholder="Enter password"
+               [(ngModel)]="user.password">
     </div>
-    <button type="submit">Sign In. Yay!</button>
+    <button type="submit" class="c-auth__submit">Sign In. Yay!</button>
 </form>

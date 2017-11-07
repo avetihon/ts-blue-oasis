@@ -1,7 +1,7 @@
-import IDeviceAcceleration from './IDeviceAcceleration';
-
 interface ITrainData {
-    data: IDeviceAcceleration;
+    x: number;
+    y: number;
+    z: number;
     movementType: string;
     timeStamp: number;
 }

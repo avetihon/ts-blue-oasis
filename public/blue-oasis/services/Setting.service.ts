@@ -7,9 +7,22 @@ import DefaultSettingList from '../config/DefaultSettingList';
 class SettingService {
 
     private __settings: ISetting;
+    private __settingPropertyList: string[];
+
+    public constructor() {
+        this.__settingPropertyList = ['theme'];
+    }
 
     public get settings() {
         return this.__settings;
+    }
+
+    public updateSettings(property: string, value: any): void {
+        if (this.__settingPropertyList.indexOf(property) > -1) {
+            (this.__settings as any)[property] = value;
+
+            LocalStorage.setItem('settings', JSON.stringify(this.__settings));
+        }
     }
 
     public load(): Promise<void> {
@@ -19,6 +32,8 @@ class SettingService {
             this.__settings = {
                 theme: DefaultSettingList.THEME,
             };
+
+            LocalStorage.setItem('settings', JSON.stringify(this.__settings));
         }
 
         return Promise.resolve();

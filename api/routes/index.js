@@ -11,6 +11,7 @@ routerPublic.use('/', require('./server'));
  */
 routerPrivate.use('/authorize', require('./auth'));
 routerPrivate.use('/user', require('./user'));
+routerPrivate.use('/data', require('./data'));
 routerPrivate.use('/ml', require('./ml'));
 
 

@@ -1,8 +1,9 @@
 const router = require('express').Router();
-const MLController = require('../controllers/MLController');
+const DataController = require('../controllers/DataController');
 const verifyAccessToken = require('../../config/middleware').verifyAccessToken;
 
 router.use(verifyAccessToken);
-router.post('/train', MLController.trainClassifier);
+router.post('/', DataController.saveData);
+router.get('/movement', DataController.getDataListByMovementType);
 
 module.exports = router;

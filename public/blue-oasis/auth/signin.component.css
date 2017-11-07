@@ -1,0 +1,28 @@
+.c-auth {
+    &__title {
+        font-size: 2.6rem;
+    }
+
+    &__form-wrapper {
+        margin-bottom: 0.5rem;
+    }
+
+    &__input {
+        padding: 0.55rem 1.5rem;
+        font-weight: 300;
+        color: #696969;
+        border: 1px solid #e8e8e8;
+        border-radius: 18px;
+        box-shadow: 0 2px 5px 0 #e8e8e8;
+    }
+
+    &__submit {
+        margin-top: 0.4rem;
+        padding: 0.5rem 1.2rem;
+        color: var(--t-main-title);
+        background-color: transparent;
+        border: 2px solid var(--t-main-title);
+        border-radius: 18px;
+        cursor: pointer;
+    }
+}

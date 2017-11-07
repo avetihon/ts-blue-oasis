@@ -1,0 +1,17 @@
+<h1 class="s-main-title">Data charts</h1>
+<section *ngIf="dataLoaded">
+    <h4 class="data__row-title">Standing chart</h4>
+    <canvas baseChart
+            [datasets]="dataListStanding"
+            [labels]="chartLabels"
+            [options]="chartOptions"
+            [colors]="chartColors"
+            [chartType]="chartType"></canvas>
+    <h4 class="data__row-title">Walking chart</h4>
+    <canvas baseChart
+            [datasets]="dataListWalking"
+            [labels]="chartLabels"
+            [options]="chartOptions"
+            [colors]="chartColors"
+            [chartType]="chartType"></canvas>
+</section>

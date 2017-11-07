@@ -1,6 +1,7 @@
 .s-main-title {
-    margin: 0 0 0.2em;
-    font-size: 1.6rem;
+    margin: 0 0 0.5em;
+    font-size: 1.7rem;
+    font-weight: 400;
     word-spacing: 0.1em;
     color: var(--t-main-title);
 }

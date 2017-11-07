@@ -5,7 +5,6 @@ import { environment } from '../environments/environment';
 
 import IUser from '../models/IUser';
 import UserService from '../services/User.service';
-import IAuthResponse from '../models/IAuthResponse';
 
 @Injectable()
 class AuthService {
@@ -18,7 +17,7 @@ class AuthService {
         this.__userService = userService;
     }
 
-    public signIn(user: IUser): Observable<IAuthResponse> {
+    public signIn(user: IUser): Observable<Object> {
         return this.__http.post(environment.apiProtectedUrl + '/authorize', user);
     }
 }

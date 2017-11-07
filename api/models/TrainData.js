@@ -24,9 +24,9 @@ class TrainData extends Model {
             $group:
                 {
                     _id : null,
-                    x: { $max: "$data.x" },
-                    y: { $max: "$data.y" },
-                    z: { $max: "$data.z" }
+                    x: { $max: '$x' },
+                    y: { $max: '$y' },
+                    z: { $max: '$z' }
                 }
         }]).toArray();
     }
@@ -36,11 +36,30 @@ class TrainData extends Model {
             $group:
                 {
                     _id : null,
-                    x: { $min: "$data.x" },
-                    y: { $min: "$data.y" },
-                    z: { $min: "$data.z" }
+                    x: { $min: '$x' },
+                    y: { $min: '$y' },
+                    z: { $min: '$z' }
                 }
         }]).toArray();
+    }
+
+    aggregatedByMovementType() {
+        return this.collection.aggregate([
+            {
+                $group: {
+                    _id: '$movementType',
+                    x: { $push: '$x' },
+                    y: { $push: '$y' },
+                    z: { $push: '$z' }
+                }
+            }, {
+                $project: {
+                    x: { $slice: [ '$x', 200 ] },
+                    y: { $slice: [ '$y', 200 ] },
+                    z: { $slice: [ '$z', 200 ] },
+                }
+            }
+        ]).toArray();
     }
 }
 

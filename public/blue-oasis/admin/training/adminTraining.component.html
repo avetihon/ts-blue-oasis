@@ -4,8 +4,8 @@
             (click)="setMovementType(MovementTypeList.STANDING)"
             [ngClass]="{'is-active': movementType === MovementTypeList.STANDING}">
         <img class="c-training__movement-type-image"
-             src="../../../assets/images/training/standing-pink.svg"
-             alt="standing-movement">
+             alt="standing-movement"
+             [src]="getPathToIcon('standing')">
         <p class="c-training__movement-type-title">Standing</p>
     </button>
     <!-- /.c-training__movement-type -->
@@ -13,8 +13,8 @@
             (click)="setMovementType(MovementTypeList.WALKING)"
             [ngClass]="{'is-active': movementType === MovementTypeList.WALKING}">
         <img class="c-training__movement-type-image"
-             src="../../../assets/images/training/walking-pink.svg"
-             alt="walking-movement">
+             alt="walking-movement"
+             [src]="getPathToIcon('walking')">
         <p class="c-training__movement-type-title">Walking</p>
     </button>
     <!-- /.c-training__movement-type -->
@@ -22,17 +22,53 @@
 <!-- /.c-training__movement-wrapper -->
 <p class="c-training__current-movement">Current movement:
     <span class="c-training__current-movement-type" *ngIf="movementType; else defaultMovement">{{ movementType }}</span>
-    <ng-template #defaultMovement>{{ defaultMovementType }}</ng-template>
+    <ng-template #defaultMovement>
+        <span class="c-training__current-movement-type">{{ defaultMovementType }}</span>
+    </ng-template>
 </p>
 <section>
-    <h2>Collect data</h2>
-    <button (click)="captureMovement()">Capture movement</button>
-    <button (click)="stop()">Stop</button>
-    <button (click)="removeData()">Remove Data</button>
-    <button (click)="send()">Save data to DB</button>
-    <div>{{ ticks }}</div>
-</section>
-<section></section>
+    <h3 class="c-training__collect-title">Collect data section</h3>
 
-<button (click)="train()">Train network</button>
+    <div class="c-training__time">{{ ticks }}</div>
+
+    <button (click)="captureMovement()" class="c-training__collect-button"
+            *ngIf="trainingState !== TrainingStateList.CAPTURING">
+        <img class="c-training__collect-icon" src="../../../assets/images/training/play.svg" alt="capture">
+        Capture movement
+    </button>
+
+    <button (click)="stop()" class="c-training__collect-button"
+            *ngIf="trainingState === TrainingStateList.CAPTURING">
+        <img class="c-training__collect-icon" src="../../../assets/images/training/stop.svg" alt="stop">
+        Stop
+    </button>
+
+    <button (click)="removeData()" class="c-training__collect-button c-training__collect-button--remove"
+            *ngIf="trainingState === TrainingStateList.STOPPED">
+        <img class="c-training__collect-icon" src="../../../assets/images/training/delete.svg" alt="delete">
+    </button>
+
+    <button (click)="send()" class="c-training__collect-button c-training__collect-button--save"
+            *ngIf="trainingState === TrainingStateList.STOPPED && trainData.length > 0">
+        <img class="c-training__collect-icon" src="../../../assets/images/training/cloud.svg" alt="send">
+        Save data to DB
+    </button>
+
+    <div class="c-training__response"
+         *ngIf="response.type === TrainingResponseList.DATA">Saved: {{ response.data }} records</div>
+</section>
+<section>
+
+    <h3 class="c-training__collect-title">Train section</h3>
+
+    <button (click)="train()" class="c-training__collect-button c-training__collect-button--train">
+        <img class="c-training__collect-icon" src="../../../assets/images/training/train.svg" alt="train">
+        Train network
+    </button>
+
+    <a routerLink="/admin/data" class="c-training__collect-button c-training__collect-button--chart">
+        <img class="c-training__collect-icon" src="../../../assets/images/training/bar-chart.svg" alt="chart">
+    </a>
+
+</section>
 

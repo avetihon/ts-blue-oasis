@@ -21,9 +21,12 @@ class MotionCaptureService {
             .fromEvent(window, 'devicemotion')
             .subscribe((event: DeviceMotionEvent): void => {
                 console.log(event);
-                this.motionData.push(new TrainData(event.acceleration, this.movementType, event.timeStamp));
-            }, (error: Error): void => {
-                console.log(error);
+                this.motionData.push(new TrainData(
+                    event.acceleration.x,
+                    event.acceleration.y,
+                    event.acceleration.z,
+                    this.movementType,
+                    event.timeStamp));
             });
     }
 

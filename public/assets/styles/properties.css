@@ -5,13 +5,15 @@
 /* Man theme */
 .t-pink {
     --t-background: #ffe1f8;
-    --t-main-title: #ca8bba;
+    --t-main-title: #dfa9d1;
+    --t-sub-title: #dcb0d1;
 }
 
 /* Woman theme */
 .t-blue {
-    --t-background: #e1e6ff;
+    --t-background: #cce6ff;
     --t-main-title: #7f9fd2;
+    --t-sub-title: #95b2e0;
 }
 
 @media (min-width: 576px) {

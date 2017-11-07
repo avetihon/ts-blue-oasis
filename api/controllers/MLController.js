@@ -69,11 +69,6 @@ const _train = _ => {
 
 };
 
-const saveData = (request) => {
-    const trainData = new TrainData(request.body);
-    trainData.save().then(_ => _normalizeData());
-};
-
 const trainClassifier = (request) => {
     const normalizeTrainData = new NormalizedTrainData(request.body);
 
@@ -99,6 +94,5 @@ const trainClassifier = (request) => {
 };
 
 module.exports = {
-    saveData: wrapResponse(saveData),
     trainClassifier: wrapResponse(trainClassifier),
 };
