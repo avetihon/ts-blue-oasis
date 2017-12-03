@@ -2,12 +2,12 @@ const bcrypt = require('bcrypt');
 const jsonWebToken = require('jsonwebtoken');
 const ObjectID = require('mongodb').ObjectID;
 
-const settings = require('../../config/settings').settings;
-const db = require('../../config/databaseWrapper/DatabaseConnector');
-const Model = require('../../config/databaseWrapper/Model');
-const WError = require('../../config/WError');
-const ERROR_CODE_LIST = require('../../config/constants/ErrorCodeList');
-const HTTP_STATUS_CODE_LIST = require('../../config/constants/HTTPStatusCodeList');
+const settings = require('../../app/settings').settings;
+const db = require('../../app/databaseWrapper/DatabaseConnector');
+const Model = require('../../app/databaseWrapper/Model');
+const WError = require('../../app/WError');
+const ERROR_CODE_LIST = require('../../app/constants/ErrorCodeList');
+const HTTP_STATUS_CODE_LIST = require('../../app/constants/HTTPStatusCodeList');
 
 const SALT_ROUND = 5;
 const ROLE = 'admin';

@@ -1,0 +1,14 @@
+<h1 class="s-main-title">Data charts</h1>
+<section>
+    <div *ngFor="let data of chartData">
+        <h4 class="data__row-title">
+            <span class="data__row-title-movement" [textContent]="data.movementType"></span> chart
+        </h4>
+        <canvas baseChart
+        [datasets]="data.dataset"
+        [labels]="chartLabels"
+        [options]="chartOptions"
+        [colors]="chartColors"
+        [chartType]="chartType"></canvas>
+    </div>
+</section>

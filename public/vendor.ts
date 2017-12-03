@@ -6,3 +6,5 @@ import '@angular/router';
 import '@angular/forms';
 
 import 'rxjs';
+
+import './assets/vendor/chart.min.js'; // v.2.7.1

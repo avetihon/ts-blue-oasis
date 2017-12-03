@@ -29,24 +29,31 @@
 <section>
     <h3 class="c-training__collect-title">Collect data section</h3>
 
-    <div class="c-training__time">{{ ticks }}</div>
+    <div class="c-training__time-wrapper">
+        <p class="c-training__time">{{ ticks }}</p>
+        <div class="c-training__time-animate"
+             *ngIf="trainingState === TrainingStateList.CAPTURING"></div>
+    </div>
 
-    <button (click)="captureMovement()" class="c-training__collect-button"
-            *ngIf="trainingState !== TrainingStateList.CAPTURING">
-        <img class="c-training__collect-icon" src="../../../assets/images/training/play.svg" alt="capture">
-        Capture movement
-    </button>
 
-    <button (click)="stop()" class="c-training__collect-button"
-            *ngIf="trainingState === TrainingStateList.CAPTURING">
-        <img class="c-training__collect-icon" src="../../../assets/images/training/stop.svg" alt="stop">
-        Stop
-    </button>
+    <div class="c-training__collect-button-wrapper">
+        <button (click)="captureMovement()" class="c-training__collect-button c-training__collect-button--capture"
+                *ngIf="trainingState !== TrainingStateList.CAPTURING">
+            Capture
+        </button>
 
-    <button (click)="removeData()" class="c-training__collect-button c-training__collect-button--remove"
-            *ngIf="trainingState === TrainingStateList.STOPPED">
-        <img class="c-training__collect-icon" src="../../../assets/images/training/delete.svg" alt="delete">
-    </button>
+        <button (click)="removeData()" class="c-training__collect-button c-training__collect-button--remove"
+                *ngIf="trainingState === TrainingStateList.STOPPED">
+            <img class="c-training__collect-icon c-training__collect-icon--remove"
+                 src="../../../assets/images/training/remove.svg" alt="remove">
+        </button>
+
+        <button (click)="stop()" class="c-training__collect-button c-training__collect-button--stop"
+                *ngIf="trainingState === TrainingStateList.CAPTURING">
+            Stop
+        </button>
+    </div>
+
 
     <button (click)="send()" class="c-training__collect-button c-training__collect-button--save"
             *ngIf="trainingState === TrainingStateList.STOPPED && trainData.length > 0">
@@ -66,8 +73,8 @@
         Train network
     </button>
 
-    <a routerLink="/admin/data" class="c-training__collect-button c-training__collect-button--chart">
-        <img class="c-training__collect-icon" src="../../../assets/images/training/bar-chart.svg" alt="chart">
+    <a routerLink="/admin/chart-data" class="c-training__charts">
+        Data charts
     </a>
 
 </section>

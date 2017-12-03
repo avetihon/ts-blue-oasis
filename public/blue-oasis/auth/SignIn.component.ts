@@ -36,7 +36,7 @@ class SignInComponent {
         LocalStorage.setItem('token', response.data.token);
         this.__userService.setUser(response.data.user);
         this.__router.navigate(['/admin/training']);
-    };
+    }
 
     protected _submitCatch = (err: HttpErrorResponse): void => {
         const errorCode = err.error.code;
@@ -52,7 +52,7 @@ class SignInComponent {
 
             }
         }
-    };
+    }
 }
 
 export default SignInComponent;

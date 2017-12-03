@@ -40,7 +40,36 @@
 .c-training {
     &__time {
         margin-top: 0.3rem;
+        margin-bottom: 0;
+        font-size: 2.5rem;
         text-align: center;
+        font-feature-settings: "tnum";
+        font-variant-numeric: tabular-nums;
+        line-height: 4.8rem;
+
+        &-wrapper {
+            position: relative;
+        }
+
+        &-animate {
+            display: inline-block;
+            height: 58px;
+            width: 58px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+
+            margin: auto;
+            opacity: 0;
+            text-align: center;
+            border: 3px solid var(--t-sub-title);
+            border-radius: 50%;
+
+            animation: pulsate 3s ease-out;
+            animation-iteration-count: infinite;
+        }
     }
 
     &__response {
@@ -54,31 +83,73 @@
     &__collect-icon {
         width: 30px;
         vertical-align: -48%;
+
+        &--remove {
+            width: 22px;
+        }
     }
 
     &__collect-button {
-        padding: 0.22rem 0.8rem 0.22rem 0.25rem;
-        border: 1px solid #ececec;
+        border: 2px solid #ececec;
         background: transparent;
-        border-radius: 20px;
+        border-radius: 50%;
+        padding: 0;
+
+        &-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
+
+        &--capture {
+            width: 76px;
+            height: 76px;
+            background-color: var(--button-action-green-background);
+            color: var(--button-action-green-border);
+            border-color: var(--button-action-green-border);
+        }
+
+        &--remove,
+        &--stop {
+            background-color: var(--button-action-red-background);
+            color: var(--button-action-red-border);
+            border-color: var(--button-action-red-border);
+        }
+
+        &--stop {
+            width: 50px;
+            height: 50px;
+        }
 
         &--remove {
-            padding: 0.22rem 0.25rem;
+            width: 50px;
+            height: 50px;
         }
 
+        &--save,
         &--train {
-            padding: 0.22rem 0.8rem 0.22rem 0.75rem;
-            vertical-align: bottom;
+            display: block;
+            width: 100%;
+            max-width: 270px;
+            margin: 0.6rem auto 0;
+            padding: 0.3em 0;
+            border-radius: 12px;
         }
 
-        &--save {
-            margin-top: 0.6rem;
-        }
 
-        &--chart {
-            display: inline-block;
-            padding: 0.22rem 0.55rem 0.22rem 0.85rem;
-            text-decoration: none;
-        }
     }
+
+    &__charts {
+        display: inline-block;
+        margin-top: 0.4rem;
+        color: var(--link);
+        text-decoration: underline;
+    }
+}
+
+/* http://tilomitra.github.io/infinite/ */
+@-webkit-keyframes pulsate {
+    0% {-webkit-transform: scale(1.0, 1.0); opacity: 0.0;}
+    50% {opacity: .2;}
+    100% {-webkit-transform: scale(1.2, 1.2); opacity: 0.0;}
 }

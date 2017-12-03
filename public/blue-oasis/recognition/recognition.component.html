@@ -1,5 +1,28 @@
 <section>
-    Recognition
+    <h1 class="s-main-title">Recognition</h1>
 
-    <button (click)="recognize();">Start recognize</button>
+    <div class="c-recognition__image-wrapper">
+        <div class="c-recognition__image-hint"
+             *ngIf="showHintText()">Click Start button to recognize movement</div>
+        <img class="c-recognition__image" src="../../assets/images/recognition/cat-giphy.gif" alt="cat-gif"
+             *ngIf="currentState === RecognitionStateList.CAPTURING" @runInOut
+             (@runInOut.start)="showHint = false"
+             (@runInOut.done)="showHint = true">
+    </div>
+
+    <div class="c-recognition__button-wrapper">
+        <button class="c-recognition__button c-recognition__button--start"
+                (click)="recognize();"
+                *ngIf="currentState === RecognitionStateList.NOT_ACTIVE">Start</button>
+        <button class="c-recognition__button c-recognition__button--stop"
+                (click)="stop();"
+                *ngIf="currentState === RecognitionStateList.CAPTURING">Stop</button>
+    </div>
+
+    <div class="c-recognition__movement-wrapper"
+         *ngIf="currentState === RecognitionStateList.CAPTURING">
+        <img src="../../assets/images/recognition/arrow.svg" alt="arrow" class="c-recognition__movement-image">
+        <p class="c-recognition__movement-title">{{ currentMovement }}</p>
+    </div>
+
 </section>

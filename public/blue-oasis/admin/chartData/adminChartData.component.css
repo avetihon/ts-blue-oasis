@@ -2,5 +2,9 @@
     &__row-title {
         margin: 0 1.05rem 0 0;
         text-align: center;
+
+        &-movement {
+            text-transform: capitalize;
+        }
     }
 }

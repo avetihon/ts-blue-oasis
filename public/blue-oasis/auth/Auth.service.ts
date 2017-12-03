@@ -17,7 +17,7 @@ class AuthService {
         this.__userService = userService;
     }
 
-    public signIn(user: IUser): Observable<Object> {
+    public signIn(user: IUser): Observable<object> {
         return this.__http.post(environment.apiProtectedUrl + '/authorize', user);
     }
 }

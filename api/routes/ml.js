@@ -1,8 +1,8 @@
 const router = require('express').Router();
 const MLController = require('../controllers/MLController');
-const verifyAccessToken = require('../../config/middleware').verifyAccessToken;
+const verifyAccessToken = require('../../app/middleware').verifyAccessToken;
 
 router.use(verifyAccessToken);
-router.post('/train', MLController.trainClassifier);
+router.get('/train', MLController.trainClassifier);
 
 module.exports = router;

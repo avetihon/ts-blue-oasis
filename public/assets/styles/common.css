@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'IndieFlowerFont';
+    src: url('../assets/fonts/IndieFlower.woff') format('woff');
+}
+
 html {
     height: 100%;
     font-size: 100%;

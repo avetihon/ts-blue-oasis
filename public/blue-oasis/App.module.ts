@@ -1,6 +1,7 @@
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import AuthGuard from './services/AuthGuard.service';
 import AdminModule from './admin/Admin.module';
@@ -32,6 +33,7 @@ import settingFactory from './services/Setting.factory';
     ],
     imports: [
         BrowserModule,
+        BrowserAnimationsModule,
         HttpClientModule,
         SharedComponentsModule,
         ModeModule,

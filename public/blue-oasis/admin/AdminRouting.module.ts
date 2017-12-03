@@ -3,11 +3,19 @@ import { RouterModule, Routes } from '@angular/router';
 
 import AuthGuard from '../services/AuthGuard.service';
 import AdminTrainingComponent from './training/AdminTraining.component';
-import AdminDataComponent from './data/adminData.component';
+import AdminChartDataComponent from './chartData/adminChartData.component';
+import AdminChartDataResolveService from './chartData/adminChartDataResolve.service';
 
 const adminRoutes: Routes = [
     { path: 'admin/training', component: AdminTrainingComponent, canActivate: [AuthGuard] },
-    { path: 'admin/data', component: AdminDataComponent, canActivate: [AuthGuard] }
+    {
+        path: 'admin/chart-data',
+        component: AdminChartDataComponent,
+        canActivate: [AuthGuard],
+        resolve: {
+            chartData: AdminChartDataResolveService,
+        },
+    }
 ];
 
 @NgModule({

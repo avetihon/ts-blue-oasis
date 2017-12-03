@@ -87,6 +87,7 @@ class AdminTrainingComponent {
     public removeData(): void {
         this.ticks = 0;
         this.trainData = [];
+        this.trainingState = TrainingStateList.NOT_ACTIVE;
         this.__motionCaptureService.removeData();
     }
 
@@ -94,7 +95,7 @@ class AdminTrainingComponent {
         if (this.trainData.length > 0) {
             this.__dataService
                 .sendTrainData(this.trainData)
-                .subscribe((response: ISuccessResponse): void => {
+                .subscribe((response: ISuccessResponse<IDictionary<any>>): void => {
                     this.trainingState = TrainingStateList.NOT_ACTIVE;
                     this.response = {
                         data: response.data.insertedCount,
@@ -105,13 +106,11 @@ class AdminTrainingComponent {
     }
 
     public train(): void {
-        if (this.movementType !== void 0) {
-            this.__mlService
-                .train(this.movementType)
-                .subscribe((response: any): void => {
-                    console.log(response);
-                }, (error: HttpErrorResponse): void => {});
-        }
+        this.__mlService
+            .train()
+            .subscribe((response: any): void => {
+                console.log(response);
+            }, (error: HttpErrorResponse): void => {});
     }
 
     public getPathToIcon(icon: string): string {

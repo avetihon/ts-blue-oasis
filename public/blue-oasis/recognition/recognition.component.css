@@ -1,0 +1,67 @@
+.c-recognition {
+
+    &__image-wrapper {
+        position: relative;
+        height: 160px;
+        overflow: hidden;
+    }
+
+    &__image {
+        max-width: 100%;
+        height: 250px;
+        margin-top: -40px;
+    }
+
+    &__image-hint {
+        position: absolute;
+        font-size: 2.1em;
+        text-align: center;
+        font-family: 'IndieFlowerFont', sans-serif;
+        color: #676767;
+    }
+
+    &__button {
+        width: 64px;
+        height: 64px;
+        border: 2px solid #ececec;
+        background: transparent;
+        border-radius: 50%;
+        padding: 0;
+
+        &--start {
+            background-color: var(--button-action-green-background);
+            color: var(--button-action-green-border);
+            border-color: var(--button-action-green-border);
+        }
+
+        &--stop {
+            background-color: var(--button-action-red-background);
+            color: var(--button-action-red-border);
+            border-color: var(--button-action-red-border);
+        }
+
+        &-wrapper {
+            position: relative;
+            text-align: center;
+        }
+    }
+
+    &__movement {
+        &-title {
+            margin-top: 0;
+            font-size: 1.2rem;
+            font-style: italic;
+            text-transform: capitalize;
+        }
+
+        &-wrapper {
+            margin-top: 0.6rem;
+            text-align: center;
+        }
+
+        &-image {
+            width: 44px;
+            transform: rotate(180deg) scale(0.9, 1);
+        }
+    }
+}

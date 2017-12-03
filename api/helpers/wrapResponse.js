@@ -1,6 +1,6 @@
-const WError = require('../../config/WError');
-const ERROR_CODE_LIST = require('../../config/constants/ErrorCodeList');
-const HTTP_STATUS_CODE_LIST = require('../../config/constants/HTTPStatusCodeList');
+const WError = require('../../app/WError');
+const ERROR_CODE_LIST = require('../../app/constants/ErrorCodeList');
+const HTTP_STATUS_CODE_LIST = require('../../app/constants/HTTPStatusCodeList');
 
 const __wrapSuccess = (response, result) => response
     .status(HTTP_STATUS_CODE_LIST.OK)

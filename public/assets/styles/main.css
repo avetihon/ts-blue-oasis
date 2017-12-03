@@ -12,5 +12,6 @@
 @import '../../blue-oasis/themeSelector/themeSelector.component.css';
 @import '../../blue-oasis/auth/signin.component.css';
 @import '../../blue-oasis/mode/mode.component.css';
+@import '../../blue-oasis/recognition/recognition.component.css';
 @import '../../blue-oasis/admin/training/adminTraining.component.css';
-@import '../../blue-oasis/admin/data/adminData.component.css';
+@import '../../blue-oasis/admin/chartData/adminChartData.component.css';

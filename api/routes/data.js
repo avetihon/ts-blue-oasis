@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const DataController = require('../controllers/DataController');
-const verifyAccessToken = require('../../config/middleware').verifyAccessToken;
+const verifyAccessToken = require('../../app/middleware').verifyAccessToken;
 
 router.use(verifyAccessToken);
 router.post('/', DataController.saveData);

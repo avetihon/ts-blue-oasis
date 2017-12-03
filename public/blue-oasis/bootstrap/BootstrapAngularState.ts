@@ -26,7 +26,6 @@ class BootstrapAngularState extends BootstrapAbstractState {
     }
 
     protected _bootstrapAngular(): void {
-
         platformBrowserDynamic()
             .bootstrapModule(AppModule)
             .then(() => console.log('Success started!'))
@@ -35,7 +34,6 @@ class BootstrapAngularState extends BootstrapAbstractState {
 
     protected _toErrorState(error: Error): void {
         const spinner = this._context.spinner;
-        debugger;
         const parentNode: Node = spinner.parentNode;
 
         parentNode.removeChild(spinner);

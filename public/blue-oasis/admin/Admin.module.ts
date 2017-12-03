@@ -4,14 +4,18 @@ import { ChartsModule } from 'ng2-charts';
 
 import AdminRoutingModule from './AdminRouting.module';
 import AdminTrainingComponent from './training/AdminTraining.component';
-import AdminDataComponent from './data/adminData.component';
+import AdminChartDataComponent from './chartData/adminChartData.component';
+import AdminChartDataResolveService from './chartData/adminChartDataResolve.service';
 
 @NgModule({
-    declarations: [ AdminTrainingComponent, AdminDataComponent ],
+    declarations: [ AdminTrainingComponent, AdminChartDataComponent ],
     imports: [
         CommonModule,
         ChartsModule,
         AdminRoutingModule
+    ],
+    providers: [
+        AdminChartDataResolveService
     ],
 })
 class AdminModule {}

@@ -1,8 +1,6 @@
-import IDictionary from './IDictionary';
-
-interface ISuccessResponse {
+interface ISuccessResponse<T> {
     success: boolean;
-    data: IDictionary<any>;
+    data: T;
 }
 
 export default ISuccessResponse;

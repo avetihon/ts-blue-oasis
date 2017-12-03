@@ -10,12 +10,11 @@ const bodyParser = require('body-parser');
 /**
  * Loads environment variables
  */
-const settings = require('./config/settings').load();
+const settings = require('./app/settings').load();
 
-const db = require('./config/databaseWrapper/DatabaseConnector');
-const dbURL = require('./config/databaseWrapper/URL').build();
-const middleware  = require('./config/middleware');
-const DATABASE_EVENT_LIST = require('./config/constants/DatabaseEventList');
+const db = require('./app/databaseWrapper/DatabaseConnector');
+const dbURL = require('./app/databaseWrapper/URL').build();
+const DATABASE_EVENT_LIST = require('./app/constants/DatabaseEventList');
 
 // connect to DB
 db.connect(dbURL);
@@ -36,11 +35,9 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'build')));
 app.use(express.static(path.join(__dirname, 'public/')));
 
-// app.use('/private/user', verifyAccessToken);
-// app.use('/private/classification', verifyAccessToken);
 // Add error handling
-app.use(require('./config/routes'));
-app.use(require('./config/middleware').errorHandler);
+app.use(require('./app/routes'));
+app.use(require('./app/middleware').errorHandler);
 app.set('port', settings.http.port);
 
 /**

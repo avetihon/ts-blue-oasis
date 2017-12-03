@@ -1,5 +1,5 @@
-const db = require('../../config/databaseWrapper/DatabaseConnector');
-const Model = require('../../config/databaseWrapper/Model');
+const db = require('../../app/databaseWrapper/DatabaseConnector');
+const Model = require('../../app/databaseWrapper/Model');
 
 class NormalizedTrainData extends Model {
     constructor(fields) {

@@ -12,8 +12,8 @@ class MLService {
         this.__http = http;
     }
 
-    public train(movementType: string): Observable<object> {
-        return this.__http.post(environment.apiProtectedUrl + '/ml/train', { movementType });
+    public train(): Observable<object> {
+        return this.__http.get(environment.apiProtectedUrl + '/ml/train');
     }
 }
 

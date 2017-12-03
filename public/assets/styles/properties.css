@@ -1,5 +1,10 @@
 :root {
     --gutter: 1rem;
+    --button-action-green-background: #cff5f2;
+    --button-action-green-border: #57aba3;
+    --button-action-red-background: #fddddd;
+    --button-action-red-border: #af5f5e;
+    --link: #3c93ce;
 }
 
 /* Man theme */

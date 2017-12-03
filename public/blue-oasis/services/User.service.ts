@@ -8,6 +8,7 @@ import { Observable } from 'rxjs/Observable';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/of';
+import IDictionary from '../models/IDictionary';
 
 @Injectable()
 class UserService {
@@ -26,11 +27,12 @@ class UserService {
 
     public getUser(): Observable<object> {
         if (this.__user === null) {
-            return this.__http.get(environment.apiProtectedUrl + '/user').map((response: ISuccessResponse) => {
-                this.__user = response.data as IUser;
+            return this.__http.get(environment.apiProtectedUrl + '/user')
+                .map((response: ISuccessResponse<IUser>) => {
+                    this.__user = response.data;
 
-                return this.__user;
-            });
+                    return this.__user;
+                });
         }
 
         return Observable.of(this.__user);

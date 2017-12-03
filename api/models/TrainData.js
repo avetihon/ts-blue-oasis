@@ -1,9 +1,15 @@
-const db = require('../../config/databaseWrapper/DatabaseConnector');
-const Model = require('../../config/databaseWrapper/Model');
+const db = require('../../app/databaseWrapper/DatabaseConnector');
+const Model = require('../../app/databaseWrapper/Model');
+
+const AGGREGATED_MOVEMENT_TYPE_LIMIT = 200;
+const DEFAULT_FEATURE_LIMIT = 0;
+const DEFAULT_FEATURE_SKIP = 0;
 
 class TrainData extends Model {
-    constructor(fields) {
+    constructor(fields = {}) {
         super(fields);
+        this.fields.limit = fields.limit || DEFAULT_FEATURE_LIMIT;
+        this.fields.skip = fields.page * this.fields.limit || DEFAULT_FEATURE_SKIP;
     }
 
     save() {
@@ -11,12 +17,20 @@ class TrainData extends Model {
         return this.collection.insertMany(this.fields);
     }
 
-    getAll() {
+    getStringMovementList() {
+        return this.collection.distinct('movementType');
+    }
+
+    getData() {
         return this.collection.find({}).toArray();
     }
 
-    getByType() {
-        return this.collection.find({ movementType: this.fields.movementType }).toArray();
+    getDataByMovementType() {
+        return this.collection
+            .find({ movementType: this.fields.movementType })
+            .limit(this.fields.limit)
+            .skip(this.fields.skip)
+            .toArray();
     }
 
     getMaximum() {
@@ -54,12 +68,92 @@ class TrainData extends Model {
                 }
             }, {
                 $project: {
-                    x: { $slice: [ '$x', 200 ] },
-                    y: { $slice: [ '$y', 200 ] },
-                    z: { $slice: [ '$z', 200 ] },
+                    x: { $slice: [ '$x', AGGREGATED_MOVEMENT_TYPE_LIMIT ] },
+                    y: { $slice: [ '$y', AGGREGATED_MOVEMENT_TYPE_LIMIT ] },
+                    z: { $slice: [ '$z', AGGREGATED_MOVEMENT_TYPE_LIMIT ] },
                 }
             }
         ]).toArray();
+    }
+
+    getMean() {
+        return this.collection.aggregate([
+            { $limit: this.fields.limit },
+            { $skip: this.fields.skip },
+            {
+                $match: {
+                    movementType: this.fields.movementType
+                }
+            }, {
+                $group: {
+                    _id: null,
+                    mean_x: { $avg: '$x' },
+                    mean_y: { $avg: '$y' },
+                    mean_z: { $avg: '$z' }
+                }
+            },
+            {
+                $project: {
+                    _id: 0
+                }
+            }
+        ]).next();
+    }
+
+    getVariance() {
+        return this.collection.aggregate([
+            { $limit: this.fields.limit },
+            { $skip: this.fields.skip },
+            {
+                $match: {
+                    movementType: this.fields.movementType
+                }
+            },
+            {
+                $group: {
+                    _id: '$movementType',
+                    x: { $push: '$x' },
+                    y: { $push: '$y' },
+                    z: { $push: '$z' }
+                }
+            },
+            {
+                $project: {
+                    _id: 0,
+                    var_x: { $pow: [ { $stdDevPop: "$x" }, 2 ] },
+                    var_y: { $pow: [ { $stdDevPop: "$y" }, 2 ] },
+                    var_z: { $pow: [ { $stdDevPop: "$z" }, 2 ] },
+                }
+            }
+        ]).next();
+    }
+
+    getStandardDeviation() {
+        return this.collection.aggregate([
+            { $limit: this.fields.limit },
+            { $skip: this.fields.skip },
+            {
+                $match: {
+                    movementType: this.fields.movementType
+                }
+            },
+            {
+                $group: {
+                    _id: '$movementType',
+                    x: { $push: '$x' },
+                    y: { $push: '$y' },
+                    z: { $push: '$z' }
+                }
+            },
+            {
+                $project: {
+                    _id: 0,
+                    std_dev_x: { $stdDevPop: "$x" },
+                    std_dev_y: { $stdDevPop: "$y" },
+                    std_dev_z: { $stdDevPop: "$z" }
+                }
+            }
+        ]).next();
     }
 }
 
