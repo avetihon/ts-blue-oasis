@@ -1,5 +1,5 @@
 <h1 class="s-main-title">Classifier Training</h1>
-<section class="c-training__movement-wrapper">
+<section class="c-training__movement-wrapper l-grid l-grid--style">
     <button class="c-training__movement-type"
             (click)="setMovementType(MovementTypeList.STANDING)"
             [ngClass]="{'is-active': movementType === MovementTypeList.STANDING}">
@@ -16,6 +16,24 @@
              alt="walking-movement"
              [src]="getPathToIcon('walking')">
         <p class="c-training__movement-type-title">Walking</p>
+    </button>
+    <!-- /.c-training__movement-type -->
+    <button class="c-training__movement-type"
+            (click)="setMovementType(MovementTypeList.SITTING)"
+            [ngClass]="{'is-active': movementType === MovementTypeList.SITTING}">
+        <img class="c-training__movement-type-image"
+             alt="walking-movement"
+             [src]="getPathToIcon('sitting')">
+        <p class="c-training__movement-type-title">Sitting</p>
+    </button>
+    <!-- /.c-training__movement-type -->
+    <button class="c-training__movement-type"
+            (click)="setMovementType(MovementTypeList.JUMPING)"
+            [ngClass]="{'is-active': movementType === MovementTypeList.JUMPING}">
+        <img class="c-training__movement-type-image"
+             alt="walking-movement"
+             [src]="getPathToIcon('jumping')">
+        <p class="c-training__movement-type-title">Jumping</p>
     </button>
     <!-- /.c-training__movement-type -->
 </section>

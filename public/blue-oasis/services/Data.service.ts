@@ -15,6 +15,7 @@ class DataService {
     }
 
     public sendTrainData(trainData: ITrainData[]): Observable<object> {
+        console.log(trainData);
         return this.__http.post(environment.apiProtectedUrl + '/data', trainData);
     }
 

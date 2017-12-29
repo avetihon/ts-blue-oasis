@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import RecognitionStateList from '../config/RecognitionStateList';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import RecognitionStateList from '../config/RecognitionStateList';
+import RecognitionService from '../services/Recognition.service';
 
 const runInOutAnimation = [
     state('in', style({transform: 'translateX(0)'})),
@@ -22,14 +23,16 @@ const runInOutAnimation = [
 })
 class RecognitionComponent {
 
-    public static readonly DEFAULT_MOVEMENT: string = 'not defined';
+    public static readonly DEFAULT_MOVEMENT: string = 'Jumping';
 
     public RecognitionStateList: RecognitionStateList;
     public currentState: number;
     public currentMovement: string;
     public showHint: boolean;
+    private __recognitionService: RecognitionService;
 
-    public constructor() {
+    public constructor(recognitionService: RecognitionService) {
+        this.__recognitionService = recognitionService;
         this.RecognitionStateList = RecognitionStateList;
         this.currentState = RecognitionStateList.NOT_ACTIVE;
         this.currentMovement = RecognitionComponent.DEFAULT_MOVEMENT;
@@ -38,6 +41,7 @@ class RecognitionComponent {
 
     public recognize(): void {
         this.currentState = RecognitionStateList.CAPTURING;
+        this.__recognitionService.recognition().subscribe();
     }
 
     public stop(): void {

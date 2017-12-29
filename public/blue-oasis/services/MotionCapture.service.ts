@@ -20,7 +20,6 @@ class MotionCaptureService {
         this.__subscribe = Observable
             .fromEvent(window, 'devicemotion')
             .subscribe((event: DeviceMotionEvent): void => {
-                console.log(event);
                 this.motionData.push(new TrainData(
                     event.acceleration.x,
                     event.acceleration.y,

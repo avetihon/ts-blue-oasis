@@ -29,7 +29,9 @@ app.use(morgan('tiny'));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // for parsing application/json
-app.use(bodyParser.json());
+app.use(bodyParser.json({
+    limit: '5mb'
+}));
 
 // Point static path to dist
 app.use(express.static(path.join(__dirname, 'build')));

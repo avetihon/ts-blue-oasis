@@ -1,12 +1,11 @@
 .c-training__movement-wrapper {
-    display: flex;
     justify-content: space-between;
 }
 
 .c-training__movement-type {
     display: inline-block;
     position: relative;
-    width: 45%;
+    width: 48%;
     padding: 0.4rem;
     margin-bottom: 0.6em;
     background: #ffffff;

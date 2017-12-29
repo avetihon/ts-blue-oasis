@@ -5,6 +5,7 @@ const routerPrivate = require('express').Router();
  * Public routers
  */
 routerPublic.use('/', require('./server'));
+routerPublic.use('/recognition', require('./recognition'));
 
 /**
  * Private routers

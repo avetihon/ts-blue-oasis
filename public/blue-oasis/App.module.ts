@@ -23,6 +23,7 @@ import SharedComponentsModule from './shared/SharedComponents.module';
 import SettingService from './services/Setting.service';
 import ThemeService from './services/Theme.service';
 import settingFactory from './services/Setting.factory';
+import RecognitionService from './services/Recognition.service';
 
 @NgModule({
     bootstrap: [AppComponent],
@@ -50,6 +51,7 @@ import settingFactory from './services/Setting.factory';
         MotionCaptureService,
         TimerService,
         SettingService,
+        RecognitionService,
         ThemeService, {
             provide: APP_INITIALIZER,
             useFactory: settingFactory,

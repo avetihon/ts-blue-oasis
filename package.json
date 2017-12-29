@@ -6,8 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "tslint -c develop.tslint.json -p develop.tsconfig.json --type-check",
-    "develop": "webpack --config webpack.config.js --watch",
-    "server": "nodemon --inspect BlueOasisApp.js",
+    "start:develop": "npm run develop:client && npm run develop:server",
+    "develop:client": "webpack --config webpack.config.js --watch",
+    "develop:server": "nodemon --inspect BlueOasisApp.js",
     "create:user": "node ./utils/createUser.js"
   },
   "keywords": [
